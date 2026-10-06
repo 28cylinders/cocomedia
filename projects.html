@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow"><!-- PREVIEW ONLY: remove at launch -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Coco Media</title>
+  <meta name="description" content="A selection of Coco Media's entertainment marketing and post-production work for Telemundo, VIX+, and other premium platforms.">
+  <meta property="og:title" content="Our Work | Coco Media">
+  <meta property="og:description" content="Entertainment marketing and post-production work for Telemundo, VIX+, and other premium platforms.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cocomedia.tv/projects.html">
+  <link rel="icon" href="assets/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/favicon-192.png">
+  <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+  /* ==========================================================================
+     Projects app — scoped under .projects-app so it can't leak into or
+     collide with the shared site stylesheet (both define .card, for example).
+     Fonts and brand colors reuse the shared @import + :root tokens from
+     css/style.css rather than redeclaring them. Ported Sept 24, 2026 from
+     Sofi's standalone Wix-iframe version: the grid/filter/detail behavior is
+     unchanged, but the iframe postMessage/resize plumbing is gone (this is a
+     normal page now, not an embed), gradients are flattened to solid brand
+     colors per the site-wide "no gradients" direction, and the always-gray
+     loading label is now solid white to hold the no-gray-text rule. Card
+     hover washes rotate teal/violet/pink to echo the ring-frame color
+     rotation used elsewhere on the site. */
+  .projects-app, .projects-app *, .projects-app *::before, .projects-app *::after { margin: 0; padding: 0; }
+  .projects-app {
+    background: #0D0D0D;
+    color: var(--color-white);
+    font-family: var(--font-body);
+  }
+
+  /* GRID */
+  .projects-app .grid-wrap { max-width: 1200px; margin: 0 auto; padding: 72px 24px 100px; }
+  .projects-app .grid-header { max-width: 620px; margin-bottom: 48px; }
+  .projects-app .grid-header h1 { font-family: var(--font-heading); font-size: clamp(36px,6vw,72px); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; line-height: 1; color: var(--color-white); margin-bottom: 20px; }
+  .projects-app .grid-header p { font-size: clamp(14px,1.5vw,17px); color: var(--color-white); line-height: 1.8; margin: 0; }
+
+  /* FILTER BAR */
+  .projects-app .filter-bar { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.07); flex-wrap: wrap; }
+  /* Hidden Sept 25 per Sofi — not enough projects yet for genre/type
+     filtering to be useful. Markup + JS (buildFilters/applyFilters etc.)
+     are untouched, so re-enabling later is just deleting this one rule. */
+  .projects-app .filter-bar { display: none; }
+  .projects-app .filter-select-wrap { position: relative; }
+  .projects-app .filter-select {
+    appearance: none; -webkit-appearance: none;
+    background-color: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    border: 1px solid rgba(255,255,255,.15);
+    color: var(--color-white);
+    font-family: var(--font-body);
+    font-size: 12px; font-weight: 700;
+    letter-spacing: .08em; text-transform: uppercase;
+    padding: 10px 40px 10px 16px;
+    border-radius: 4px; cursor: pointer;
+    transition: border-color .2s;
+    min-width: 160px;
+  }
+  .projects-app .filter-select:focus { outline: none; border-color: var(--color-violet); }
+  .projects-app .filter-select option { background: #1a1a1a; color: var(--color-white); text-transform: none; letter-spacing: 0; font-size: 13px; }
+  .projects-app .filter-select.active { border-color: var(--color-violet); color: var(--color-white); }
+  .projects-app .filter-clear { background: none; border: none; color: var(--color-white); font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; padding: 0; transition: color .2s; display: none; }
+  .projects-app .filter-clear:hover { color: var(--color-pink); }
+
+  /* CARDS */
+  .projects-app .project-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  @media(max-width:767px){ .projects-app .project-grid { grid-template-columns: 1fr; } .projects-app .filter-select { min-width: 100%; } .projects-app .filter-bar { gap: 12px; } }
+  .projects-app .card { position: relative; cursor: pointer; border-radius: 8px; overflow: hidden; aspect-ratio: 16/10; background: #1a1a1a; transition: box-shadow .3s, transform .3s; }
+  .projects-app .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.5); }
+  .projects-app .card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+  .projects-app .card:hover img { transform: scale(1.04); }
+  .projects-app .card-thumb-loading { width: 100%; height: 100%; background: #1f1f1f; display: flex; align-items: center; justify-content: center; }
+  .projects-app .card-thumb-loading span { color: var(--color-white); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+  /* Flat scrim, not a gradient — brightens slightly on hover with a solid
+     brand-color wash that rotates teal / violet / pink across the grid. */
+  .projects-app .card-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.4); transition: background .35s; }
+  .projects-app .card:hover .card-overlay { background: rgba(115,77,255,.85); }
+  .projects-app .card:nth-child(3n+2):hover .card-overlay { background: rgba(15,186,186,.85); }
+  .projects-app .card:nth-child(3n):hover .card-overlay { background: rgba(221,14,105,.85); }
+  .projects-app .card-hover-label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; opacity: 0; transform: translateY(8px); transition: opacity .3s, transform .3s; }
+  .projects-app .card:hover .card-hover-label { opacity: 1; transform: translateY(0); }
+  .projects-app .card-hover-label h3 { font-family: var(--font-heading); font-size: clamp(15px,2vw,22px); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--color-white); line-height: 1.2; margin: 0; }
+  .projects-app .card-hover-label .card-type-tag { font-family: var(--font-body); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--color-white); margin-top: 8px; }
+  .projects-app .card-hover-label .rule { width: 32px; height: 2px; background: var(--color-white); border-radius: 2px; margin-top: 14px; }
+
+  /* NO RESULTS */
+  .projects-app .no-results { text-align: center; padding: 80px 24px; color: var(--color-white); font-family: var(--font-heading); font-size: 18px; letter-spacing: .1em; text-transform: uppercase; display: none; }
+
+  /* DETAIL — pure white background per Sofi's Sept 24 feedback ("the
+     background should be pure white and the hierarchy of words is not
+     super clear"). #page-grid stays dark; #page-detail flips to a light
+     section with its own black/white text rules below. Brand teal fails
+     AA contrast on white (~2.4:1) so it's kept as a decorative accent
+     (dot, chip) rather than body text color; violet and pink both clear
+     4.5:1 on white and are kept as label accents. */
+  .projects-app #page-detail { background: var(--color-white); color: var(--color-black); }
+  .projects-app .detail-wrap { max-width: 860px; margin: 0 auto; padding: 60px 24px 100px; }
+  .projects-app .btn-back { background: none; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; color: var(--color-black); font-family: var(--font-body); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 40px; padding: 0; transition: opacity .2s; }
+  .projects-app .btn-back:hover { opacity: .6; }
+
+  .projects-app .detail-info { margin-bottom: 36px; max-width: 680px; }
+  .projects-app .detail-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .projects-app .detail-client { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--color-black); }
+  .projects-app .detail-client::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--color-teal); flex-shrink: 0; }
+  .projects-app .detail-year { font-size: 11px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: var(--color-black); padding-left: 12px; border-left: 1px solid rgba(0,0,0,.15); }
+  .projects-app .detail-title { font-family: var(--font-heading); font-size: clamp(20px,3.2vw,38px); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--color-black); line-height: 1.15; margin-bottom: 16px; }
+  .projects-app .detail-type-tag { display: inline-block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; background: var(--color-black); color: var(--color-white); border: none; border-radius: 3px; padding: 4px 10px; margin-bottom: 24px; }
+  .projects-app .video-desc { font-size: 15px; line-height: 1.85; color: var(--color-black); margin-bottom: 24px; max-width: 640px; }
+  .projects-app .video-desc-loading { font-size: 13px; color: var(--color-black); font-style: italic; margin-bottom: 24px; display: none; }
+  .projects-app .credits { padding-top: 20px; border-top: 1px solid rgba(0,0,0,.08); margin-bottom: 0; max-width: 640px; }
+  .projects-app .credits-label { font-family: var(--font-heading); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--color-violet); margin-bottom: 8px; display: block; }
+  .projects-app .credits-text { font-size: 13px; color: var(--color-black); line-height: 1.7; display: block; }
+
+  /* AWARDS */
+  .projects-app .awards { padding-top: 16px; margin-top: 16px; border-top: 1px solid rgba(0,0,0,.08); max-width: 640px; }
+  .projects-app .awards-label { font-family: var(--font-heading); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--color-pink); margin-bottom: 8px; display: block; }
+  .projects-app .awards-text { font-size: 13px; color: var(--color-black); line-height: 1.7; white-space: pre-line; display: block; }
+
+  /* VIDEO — horizontal */
+  .projects-app .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 8px; overflow: hidden; background: #000; }
+  .projects-app .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+  /* VIDEO — vertical: phone-sized, centered */
+  .projects-app .video-wrap.vertical {
+    padding-bottom: 0;
+    height: 620px;
+    max-width: 350px;
+    margin: 0 auto;
+    border-radius: 16px;
+  }
+
+  /* VIDEO — square: 1:1 ratio, centered */
+  .projects-app .video-wrap.square {
+    padding-bottom: 0;
+    height: 0;
+    aspect-ratio: 1 / 1;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 16px;
+  }
+
+  /* RELATED VIDEOS */
+  .projects-app .divider { width: 40px; height: 2px; background: var(--color-violet); border-radius: 2px; margin: 56px 0 40px; }
+  .projects-app .related-block { margin-bottom: 56px; }
+  .projects-app .related-title { font-family: var(--font-heading); font-size: clamp(14px,1.6vw,18px); font-weight: 500; text-transform: uppercase; letter-spacing: .04em; color: var(--color-black); margin-bottom: 16px; }
+
+  /* PROJECT NAV ARROWS */
+  .projects-app .project-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 56px; padding-top: 32px; border-top: 1px solid rgba(0,0,0,.08); gap: 16px; }
+  .projects-app .project-nav-top { margin-top: 0; margin-bottom: 40px; padding-top: 0; padding-bottom: 32px; border-top: none; border-bottom: 1px solid rgba(0,0,0,.08); }
+  .projects-app .project-nav-btn { display: flex; align-items: center; gap: 10px; background: none; border: none; cursor: pointer; color: var(--color-black); font-family: var(--font-body); padding: 8px 0; transition: opacity .2s, transform .2s; max-width: 46%; min-width: 0; }
+  .projects-app .project-nav-btn:hover { opacity: .7; }
+  .projects-app .project-nav-btn.next { margin-left: auto; text-align: right; flex-direction: row-reverse; }
+  .projects-app .project-nav-arrow { width: 34px; height: 34px; border-radius: 50%; border: 1px solid rgba(0,0,0,.25); color: var(--color-black); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; transition: background .2s, border-color .2s, color .2s; }
+  .projects-app .project-nav-btn:hover .project-nav-arrow { background: var(--color-violet); border-color: var(--color-violet); color: var(--color-white); }
+  .projects-app .project-nav-text { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; overflow: hidden; }
+  .projects-app .project-nav-btn.next .project-nav-text { align-items: flex-end; }
+  .projects-app .project-nav-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--color-teal); margin-bottom: 4px; }
+  .projects-app .project-nav-title { font-family: var(--font-heading); font-size: 13px; letter-spacing: .03em; text-transform: uppercase; line-height: 1.3; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  @media(max-width:600px){
+    .projects-app .project-nav-title { max-width: 100%; font-size: 11px; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; text-overflow: ellipsis; overflow: hidden; }
+    .projects-app .project-nav-label { font-size: 9px; }
+    .projects-app .project-nav-arrow { width: 28px; height: 28px; font-size: 13px; }
+    .projects-app .project-nav-btn { max-width: 47%; gap: 6px; }
+    .projects-app .project-nav { gap: 8px; }
+  }
+  @media(max-width:380px){
+    .projects-app .project-nav-label { display: none; }
+    .projects-app .project-nav-title { -webkit-line-clamp: 2; }
+  }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><img src="assets/brand/coco-media-logo-black-dots.png" alt="Coco Media" width="86" height="34" class="logo-img"></a>
+      <nav class="main-nav" aria-label="Primary">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="projects.html" aria-current="page">Projects</a></li>
+        </ul>
+      </nav>
+      <!-- Social links — placeholder hrefs, swap in real profile URLs when Sofi sends them -->
+      <div class="social-icons">
+        <a href="https://vimeo.com/mcpani" aria-label="Coco Media on Vimeo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.396 7.164c-.093 2.026-1.507 4.799-4.245 8.32-2.828 3.672-5.221 5.508-7.181 5.508-1.214 0-2.24-1.12-3.078-3.36-.562-2.055-1.125-4.111-1.687-6.166-.626-2.242-1.298-3.363-2.016-3.363-.156 0-.703.328-1.64.98l-.983-1.266c1.031-.906 2.047-1.812 3.047-2.719C6.023 4.019 7.213 3.394 7.947 3.325c1.749-.169 2.826.937 3.234 3.315.44 2.573.744 4.172.916 4.797.51 2.312 1.07 3.468 1.687 3.468.478 0 1.198-.755 2.159-2.264.96-1.51 1.474-2.658 1.543-3.444.14-1.303-.376-1.955-1.543-1.955-.55 0-1.116.126-1.699.377 1.128-3.696 3.283-5.492 6.465-5.388 2.362.076 3.475 1.6 3.339 4.576z"/></svg></a>
+        <a href="#" aria-label="Coco Media on LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+        <a href="#" aria-label="Coco Media on Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4 2.209 0 4 1.791 4 4 0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+      </div>
+      <a href="mailto:info@cocomedia.tv" class="btn btn-cta">Let's Talk</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="projects-app">
+
+<script>
+// ════════════════════════════════════════════════════════
+// PROJECTS DATA — updated June 2026
+// Naming convention: [Show Title] | [Descriptor]
+// type: Trailer | Episodic Promo | BTS Content | Character Profile |
+//       TV Spot | Sizzle Reel | Campaign | Brand Content
+//       Pipe-separate multiples: "BTS Content | Character Profile"
+// ════════════════════════════════════════════════════════
+const PROJECTS_SRC = [
+
+  // ── VIX+ ────────────────────────────────────────────
+
+  {
+    id: 1,
+    title: "Mujeres Asesinas Season 3 | Behind the Scenes + Character Profiles",
+    client: "VIX+", year: "2025",
+    type: "BTS Content | Character Profile", genre: "Drama, Thriller", format: "Series",
+    vimeoId: "1144681763", vertical: false,
+    mainVideo: {
+      vimeoId: "1144681763",
+      title: "Mujeres Asesinas Season 3 | Behind the Scenes",
+      description: "Season 3 launching campaign. 2-minute behind the scenes, 8 character profiles, and 8 × :20 social media pieces. Written + post-produced by Coco Media. Mujeres Asesinas Season 3 pushed the franchise beyond empathy and into understanding. Rather than focusing on the crimes, the campaign immersed audiences in the emotional realities, fears, and impossible choices that shaped each woman's story. Through character profiles, episodic promos, social content, and behind-the-scenes assets, the strategy brought viewers closer to the protagonists than ever before. The result was a campaign that didn't ask audiences to excuse their actions, it asked them to confront the circumstances that made them possible."
+    },
+    related: [
+      { vimeoId: "1144683183", title: "Mujeres Asesinas Season 3 | Character Profile | Cassandra Sánchez Navarro", description: "", vertical: false },
+      { vimeoId: "1169938343", title: "Mujeres Asesinas Season 3 | Character Profile | Angelique Boyer", description: "", vertical: false }
+    ],
+    extraText: "Creative Direction | Concept Development | Editing | Music Design | Versioning"
+  },
+
+  {
+    id: 2,
+    title: "Mujeres Asesinas Season 3 | Episodic Promos",
+    client: "VIX+", year: "2025",
+    type: "Episodic Promo", genre: "Drama, Thriller", format: "Series",
+    vimeoId: "1202190536", vertical: false,
+    mainVideo: {
+      vimeoId: "1202190536",
+      title: "Mujeres Asesinas Season 3 | Social Promo | Raquel",
+      description: "Episodic social promos for Season 3. Concept + post-produced by Coco Media."
+    },
+    related: [
+      { vimeoId: "1201940699", title: "Mujeres Asesinas Season 3 | Social Promo | Adriana", description: "", vertical: false },
+      { vimeoId: "1144681511", title: "Mujeres Asesinas Season 3 | TV Spot | Fátima", description: "", vertical: false }
+    ],
+    extraText: "Concept Development | Editing | Music Design | Versioning"
+  },
+
+  {
+    id: 3,
+    title: "Mujeres Asesinas Season 2 | Behind the Scenes + Character Profiles",
+    client: "VIX+", year: "2024",
+    type: "BTS Content | Character Profile", genre: "Drama, Thriller", format: "Series",
+    vimeoId: "1168665676", vertical: false,
+    mainVideo: {
+      vimeoId: "1168665676",
+      title: "Mujeres Asesinas Season 2 | Behind the Scenes",
+      description: "Season 2 launching campaign. 4-minute behind the scenes, 8 character profiles, and 8 × :20 social media pieces. Written + post-produced by Coco Media. Mujeres Asesinas 2 on VIX+ revived a proven franchise with a campaign built on one disarming strategic truth: every episode was inspired by actual events, and that fact reframed everything the audience thought they knew. Through 8 character profiles, long-form behind-the-scenes content, and a targeted social campaign, the strategy used the cast's performances as the emotional entry point, humanizing each protagonist before the audience could reduce her to her worst moment. The creative framework pushed viewers to ask 'why' before asking 'how,' turning true-crime tension into something far more unsettling: recognition."
+    },
+    related: [
+      { vimeoId: "1144675276", title: "Mujeres Asesinas Season 2 | Character Profile | Carolina Miranda", description: "", vertical: false },
+      { vimeoId: "1144675203", title: "Mujeres Asesinas Season 2 | Character Profile | África Zabala", description: "", vertical: false },
+      { vimeoId: "1144675408", title: "Mujeres Asesinas Season 2 | Character Profile | Elyfer Torres", description: "", vertical: false }
+    ],
+    extraText: "Concept Development | Editing | Music Design | Versioning"
+  },
+
+  {
+    id: 4,
+    title: "Mujeres Asesinas Season 2 | Episodic TV Spots",
+    client: "VIX+", year: "2024",
+    type: "Episodic Promo", genre: "Drama, Thriller", format: "Series",
+    vimeoId: "1168302169", vertical: false,
+    mainVideo: {
+      vimeoId: "1168302169",
+      title: "Mujeres Asesinas Season 2 | TV Spot | Lorenza",
+      description: "Episodic TV spots for Season 2. Concept + post-produced by Coco Media."
+    },
+    related: [
+      { vimeoId: "1144676128", title: "Mujeres Asesinas Season 2 | TV Spot | Aurora", description: "", vertical: false },
+      { vimeoId: "1168301821", title: "Mujeres Asesinas Season 2 | TV Spot | Esmeralda", description: "", vertical: false }
+    ],
+    extraText: "Concept Development | Editing | Music Design | Finishing | Versioning"
+  },
+
+  {
+    id: 5,
+    title: "El Mochaorejas | Behind the Scenes + Character Profiles",
+    client: "VIX+", year: "2026",
+    type: "BTS Content | Character Profile", genre: "Thriller, True Crime", format: "Series",
+    vimeoId: "1169360851", vertical: false,
+    mainVideo: {
+      vimeoId: "1169360851",
+      title: "El Mochaorejas | Behind the Scenes",
+      description: ""
+    },
+    related: [
+      { vimeoId: "1169956569", title: "El Mochaorejas | Character Profile | Damián Alcázar", description: "", vertical: false },
+      { vimeoId: "1169340552", title: "El Mochaorejas | Character Profile | Paulina Gaitán", description: "", vertical: false }
+    ],
+    extraText: "Concept | Editing | Music Design | Versioning"
+  },
+
+  {
+    id: 6,
+    title: "La Hora Marcada | Behind the Scenes",
+    client: "VIX+", year: "2024",
+    type: "BTS Content", genre: "Horror, Thriller", format: "Series",
+    vimeoId: "1079438710", vertical: false,
+    mainVideo: {
+      vimeoId: "1079438710",
+      title: "La Hora Marcada | Behind the Scenes",
+      description: "4-minute general behind the scenes + episodic behind the scenes. Written + post-produced by Coco Media."
+    },
+    related: [
+      { vimeoId: "1144665640", title: "La Hora Marcada | Behind the Scenes | The Visit", description: "", vertical: false },
+      { vimeoId: "1144686457", title: "La Hora Marcada | Behind the Scenes | The Tremor", description: "", vertical: false }
+    ],
+    extraText: "Concept | Editing | Music Design | Versioning"
+  },
+
+  {
+    id: 7,
+    title: "Es Por Su Bien | Behind the Scenes + Character Profiles",
+    client: "VIX+", year: "2024",
+    type: "BTS Content | Character Profile", genre: "Comedy", format: "Series",
+    vimeoId: "1138162833", vertical: false,
+    mainVideo: {
+      vimeoId: "1138162833",
+      title: "Es Por Su Bien | Behind the Scenes",
+      description: ""
+    },
+    related: [
+      { vimeoId: "1138158658", title: "Es Por Su Bien | Character Profile | Kate del Castillo", description: "", vertical: false },
+      { vimeoId: "1138155658", title: "Es Por Su Bien | Character Profile | Consuelo Duval", description: "", vertical: false },
+      { vimeoId: "1138159073", title: "Es Por Su Bien | Character Profile | Mónica Huarte", description: "", vertical: false }
+    ],
+    extraText: "Concept | Editing | Music Design | Versioning"
+  },
+
+  {
+    id: 8,
+    title: "Un Buen Divorcio | Behind the Scenes + Character Profiles",
+    client: "VIX+", year: "2024",
+    type: "BTS Content | Character Profile", genre: "Comedy", format: "Series",
+    vimeoId: "1138128031", vertical: false,
+    mainVideo: {
+      vimeoId: "1138128031",
+      title: "Un Buen Divorcio | Behind the Scenes",
+      description: ""
+    },
+    related: [
+      { vimeoId: "1144568287", title: "Un Buen Divorcio | Character Profile | Esmeralda Pimentel", description: "", vertical: false },
+      { vimeoId: "1144571535", title: "Un Buen Divorcio | Character Profile | Claudia Álvarez", description: "", vertical: false },
+      { vimeoId: "1144565060", title: "Un Buen Divorcio | Character Profile | Gustavo Egelhaaf", description: "", vertical: false }
+    ],
+    extraText: "Editing | Music Design | Versioning"
+  },
+
+  {
+    id: 9,
+    title: "El Hilo Rojo | Character Profiles",
+    client: "VIX+", year: "2024",
+    type: "Character Profile", genre: "Dramedy", format: "Movie",
+    vimeoId: "1168224384", vertical: false,
+    mainVideo: {
+      vimeoId: "1168224384",
+      title: "El Hilo Rojo | Character Profile | Carolina Miranda",
+      description: ""
+    },
+    related: [
+      { vimeoId: "1168230371", title: "El Hilo Rojo | Character Profile | Michel Brown", description: "", vertical: false }
+    ],
+    extraText: "Editing | Music Design | Versioning"
+  },
+
+  {
+    id: 10,
+    title: "Cómplices | Behind the Scenes + Character Profiles",
+    client: "VIX+", year: "2025",
+    type: "BTS Content | Character Profile", genre: "Comedy", format: "Series",
+    vimeoId: "1144622115", vertical: false,
+    mainVideo: {
+      vimeoId: "1144622115",
+      title: "Cómplices | Behind the Scenes",
+      description: ""
+    },
+    related: [
+      { vimeoId: "1144630118", title: "Cómplices | Character Profile | Lucía Méndez", description: "", vertical: false },
+      { vimeoId: "1144635949", title: "Cómplices | Character Profile | Marjorie de Sousa", description: "", vertical: false }
+    ],
+    extraText: "Editing | Music Design | Versioning"
+  },
+
+  {
+    id: 11,
+    title: "Más Allá de Ti | Behind the Scenes + Character Profiles",
+    client: "VIX+", year: "2023",
+    type: "BTS Content | Character Profile", genre: "Thriller", format: "Series",
+    vimeoId: "1168232368", vertical: false,
+    mainVideo: {
+      vimeoId: "1168232368",
+      title: "Más Allá de Ti | Behind the Scenes",
+      description: ""
+    },
+    related: [
+      { vimeoId: "1168241370", title: "Más Allá de Ti | Character Profile | Sebastián Rulli", description: "", vertical: false },
+      { vimeoId: "1168235432", title: "Más Allá de Ti | Character Profile | Ariadne Díaz", description: "", vertical: false }
+    ],
+    extraText: "Editing | Music Design | Versioning"
+  },
+
+  {
+    id: 12,
+    title: "Montecristo | Behind the Scenes",
+    client: "VIX+", year: "2023",
+    type: "BTS Content", genre: "Drama, Thriller", format: "Series",
+    vimeoId: "1144652042", vertical: false,
+    mainVideo: {
+      vimeoId: "1144652042",
+      title: "Montecristo | Behind the Scenes",
+      description: ""
+    },
+    related: [],
+    extraText: "Concept | Editing | Music Design | Versioning"
+  },
+
+  {
+    id: 13,
+    title: "El Profesor Infiltrado | Trailers",
+    client: "VIX+", year: "",
+    type: "Trailer", genre: "Comedy, Sitcom", format: "Series",
+    vimeoId: "1144578701", vertical: false,
+    mainVideo: {
+      vimeoId: "1144578701",
+      title: "El Profesor Infiltrado | Trailer Season 1",
+      description: ""
+    },
+    related: [
+      { vimeoId: "1168980335", title: "El Profesor Infiltrado | Trailer Season 2", description: "", vertical: false }
+    ],
+    extraText: "Concept | Editing | Music Design | Versioning"
+  },
+
+  {
+    id: 14,
+    title: "Consuelo Season 2 | Trailer",
+    client: "VIX+", year: "2025",
+    type: "Trailer", genre: "Comedy", format: "Series",
+    vimeoId: "1144586860", vertical: false,
+    mainVideo: {
+      vimeoId: "1144586860",
+      title: "Consuelo Season 2 | Trailer",
+      description: ""
+    },
+    related: [],
+    extraText: "Concept | Editing | Versioning | Music Design"
+  },
+
+  {
+    id: 15,
+    title: "De Viaje con los Derbez | Japan | Behind the Scenes",
+    client: "VIX+", year: "2025",
+    type: "BTS Content", genre: "Comedy", format: "Docu-Reality",
+    vimeoId: "1144690078", vertical: false,
+    mainVideo: {
+      vimeoId: "1144690078",
+      title: "De Viaje con los Derbez | Japan | Eugenio",
+      description: ""
+    },
+    related: [
+      { vimeoId: "1144689792", title: "De Viaje con los Derbez | Japan | Aislinn", description: "", vertical: false },
+      { vimeoId: "1144690403", title: "De Viaje con los Derbez | Japan | José Eduardo", description: "", vertical: false }
+    ],
+    extraText: "Concept | Editing | Music Design | Versioning"
+  },
+
+  // ── TELEMUNDO ────────────────────────────────────────
+
+  {
+    id: 16,
+    title: "Sed de Venganza | Trailer",
+    client: "Telemundo", year: "2025",
+    type: "Trailer", genre: "Drama", format: "Novela",
+    vimeoId: "1144607961", vertical: false,
+    mainVideo: {
+      vimeoId: "1144607961",
+      title: "Sed de Venganza | Trailer",
+      description: ""
+    },
+    related: [],
+    extraText: "Script | Editing | Audio Mix"
+  },
+
+  {
+    id: 17,
+    title: "El Secreto de la Familia Greco | Trailer",
+    client: "Telemundo", year: "2024",
+    type: "Trailer", genre: "Drama, Crime", format: "Series",
+    vimeoId: "1144563600", vertical: false,
+    mainVideo: {
+      vimeoId: "1144563600",
+      title: "El Secreto de la Familia Greco | Trailer",
+      description: ""
+    },
+    related: [],
+    extraText: "Concept | Editing | Graphics | Audio Mix | Music Design"
+  },
+
+  {
+    id: 18,
+    title: "Jugar con Fuego | Launch Campaign",
+    client: "Telemundo", year: "",
+    type: "Trailer", genre: "Drama", format: "Novela",
+    vimeoId: "1200216422", vertical: false,
+    mainVideo: {
+      vimeoId: "1200216422",
+      title: "Jugar con Fuego | Trailer",
+      description: ""
+    },
+    related: [
+      { vimeoId: "1200247709", title: "Jugar con Fuego | Trailer | Cast", description: "", vertical: false }
+    ],
+    extraText: "Editing | Music Design | Versioning"
+  },
+
+  {
+    id: 19,
+    title: "No Te Puedes Esconder | Launch Campaign",
+    client: "Telemundo", year: "",
+    type: "Trailer", genre: "Drama", format: "Novela",
+    vimeoId: "1200243974", vertical: false,
+    mainVideo: {
+      vimeoId: "1200243974",
+      title: "No Te Puedes Esconder | Trailer",
+      description: ""
+    },
+    related: [
+      { vimeoId: "1200244188", title: "No Te Puedes Esconder | Teaser | Blanca Soto", description: "", vertical: false }
+    ],
+    extraText: "Editing | Audio Mix | Versioning"
+  },
+
+  {
+    id: 20,
+    title: "Exatlón Estados Unidos | Launch Campaign",
+    client: "Telemundo", year: "",
+    type: "Campaign", genre: "General Entertainment", format: "Campaign",
+    vimeoId: "1200208032", vertical: false,
+    mainVideo: {
+      vimeoId: "1200208032",
+      title: "Exatlón Estados Unidos | Launch Campaign",
+      description: ""
+    },
+    related: [],
+    extraText: "Editing | Audio Mix | Versioning"
+  },
+
+  {
+    id: 21,
+    title: "El César | Launch Campaign",
+    client: "Telemundo", year: "",
+    type: "Campaign", genre: "Drama", format: "Series",
+    vimeoId: "268180510", vertical: false,
+    mainVideo: {
+      vimeoId: "268180510",
+      title: "El César | Launch Campaign",
+      description: ""
+    },
+    related: [
+      { vimeoId: "1200211794", title: "El César | Digital Spot | True Story", description: "", ratio: "square" },
+      { vimeoId: "1200211955", title: "El César | Digital Spot | 80 Millions", description: "", ratio: "square" }
+    ],
+    extraText: "Concept | Scriptwriting | Editing"
+  },
+
+  {
+    id: 22,
+    title: "La Reina del Sur Season 2 | Upfront Teaser",
+    client: "Telemundo", year: "",
+    type: "Trailer", genre: "Drama", format: "Series",
+    vimeoId: "1200859047", vertical: false,
+    mainVideo: {
+      vimeoId: "1200859047",
+      title: "La Reina del Sur Season 2 | Upfront Teaser",
+      description: "There is only one queen, and she is on Telemundo. That was the strategic tension Telemundo needed to own at its Upfront: with the American Queen of the South fresh in the market, the stakes weren't just announcing a sequel, they were reclaiming the throne. With zero footage and a series still in pre-production, the teaser did the only thing that mattered: it put Kate del Castillo front and center and made one thing undeniable: there is only one Teresa Mendoza, and she's coming back."
+    },
+    related: [],
+    extraText: "Scriptwriting | Filming Supervision | Editing"
+  },
+
+  {
+    id: 23,
+    title: "Celia, la Serie | Launch Campaign",
+    client: "Telemundo", year: "2015",
+    type: "Campaign", genre: "Drama, Biopic", format: "Novela",
+    vimeoId: "220210488", vertical: false,
+    mainVideo: {
+      vimeoId: "220210488",
+      title: "Celia, la Serie | Trailer",
+      description: "Behind the most iconic voice in Latin music was a woman the world needed to know. Launching Celia on Telemundo meant doing justice to a legend, and a strategy built for two: the generation that grew up on her and the one still discovering her. The campaign anchored on a single, powerful truth: The Woman Behind the Voice. From a hero trailer to intimate special features, every piece peeled back the icon to reveal the fighter, a young woman from Havana who broke through racism, exile, and doubt to conquer the world."
+    },
+    related: [
+      { vimeoId: "220221355", title: "Celia, la Serie | TV Spot | Love Story", description: "", vertical: false },
+      { vimeoId: "220221246", title: "Celia, la Serie | TV Spot | Her Story", description: "", vertical: false }
+    ],
+    extraText: "Campaign Strategy | Scriptwriting | Creative Direction | Editing"
+  },
+
+  {
+    id: 24,
+    title: "Jenni Rivera | Mariposa de Barrio | Launch Campaign",
+    client: "Telemundo", year: "",
+    type: "Campaign", genre: "Drama, Biopic", format: "Novela",
+    vimeoId: "273512822", vertical: false,
+    mainVideo: {
+      vimeoId: "273512822",
+      title: "Jenni Rivera | Mariposa de Barrio | Teaser Kickoff",
+      description: "Launching Mariposa de Barrio required more than promotion, it required earning the trust of fans who already owned Jenni Rivera's story. The campaign centered on authenticity, leveraging family participation, behind-the-scenes access, and a high-profile cast reveal to position Angelica Celaya's portrayal as a tribute, not a replacement. By turning a beloved legacy into a shared cultural event, the strategy transformed nostalgia into anticipation and helped drive audiences to experience Jenni's story on Telemundo."
+    },
+    related: [
+      { vimeoId: "273511875", title: "Jenni Rivera | Mariposa de Barrio | Teaser Kickoff 2", description: "", vertical: false }
+    ],
+    extraText: "Campaign Concept Development | Scriptwriting | Creative Direction | Filming Supervision | Editing"
+  },
+
+  {
+    id: 25,
+    title: "Dueños del Paraíso | Launch Campaign",
+    client: "Telemundo", year: "",
+    type: "Campaign", genre: "Drama", format: "Novela",
+    vimeoId: "220227918", vertical: false,
+    mainVideo: {
+      vimeoId: "220227918",
+      title: "Dueños del Paraíso | Trailer",
+      description: "Kate del Castillo was back, and the world needed to feel it before they could see it. Dueños del Paraíso wasn't just a series launch, it was a cultural re-entry. The campaign's first phase had one job: remind audiences why they fell for Kate in the first place, then redirect that loyalty toward a new obsession: a ripped-from-reality story of power, danger, and glamour set against the cocaine-fueled Miami of the 1980s. Pure anticipation, engineered into heat."
+    },
+    related: [
+      { vimeoId: "220228488", title: "Dueños del Paraíso | Teaser Kickoff 1", description: "", vertical: false },
+      { vimeoId: "220228535", title: "Dueños del Paraíso | Teaser | Miami 1980", description: "", vertical: false }
+    ],
+    extraText: "Campaign Concept Development | Scriptwriting | Creative Direction | Filming Supervision | Editing"
+  },
+
+  {
+    id: 26,
+    title: "Premios Tu Mundo 2018 | Opening Video",
+    client: "Telemundo", year: "2018",
+    type: "TV Spot", genre: "General Entertainment", format: "Special",
+    vimeoId: "273513318", vertical: false,
+    mainVideo: {
+      vimeoId: "273513318",
+      title: "Premios Tu Mundo 2018 | Opening Video",
+      description: "30-second TV promo for Premios Tu Mundo 2018. Produced, post-produced, and written by Coco Media."
+    },
+    related: [],
+    extraText: "General Production | Concept | Editing"
+  },
+
+  {
+    id: 27,
+    title: "Premios Tu Mundo 2018 | TV Spots",
+    client: "Telemundo", year: "2018",
+    type: "TV Spot", genre: "General Entertainment", format: "Special",
+    vimeoId: "220225253", vertical: false,
+    mainVideo: {
+      vimeoId: "220225253",
+      title: "Premios Tu Mundo | TV Spot | Dra. Polo + El Señor de los Cielos",
+      description: ""
+    },
+    related: [
+      { vimeoId: "220225376", title: "Premios Tu Mundo | TV Spot | El Señor de los Cielos + Señora Acero", description: "", vertical: false }
+    ],
+    extraText: "General Production | Concept | Editing"
+  },
+
+  {
+    id: 28,
+    title: "L.A. Screening 2022 | Sizzle Tape",
+    client: "Telemundo | NBC", year: "2022",
+    type: "Sizzle Reel", genre: "General Entertainment", format: "Sales",
+    vimeoId: "1079401392", vertical: false,
+    mainVideo: {
+      vimeoId: "1079401392",
+      title: "L.A. Screening 2022 | Sizzle Tape",
+      description: "What makes a story stay with us long after it ends? For Telemundo, the answer has always been the same: the heart. For the 2022 international sales presentation, Coco Media developed the full creative package: concept, script, editorial direction, graphic design, and animation, building a cinematic brand film around a single organizing idea: Let the Hearts Beat. Spanning romance, suspense, family drama, and action, every sequence was designed to evoke a distinct emotional response, using sound design, pacing, and powerful character moments to prove that Telemundo doesn't just produce content, it produces feeling."
+    },
+    related: [],
+    extraText: "Concept Development | Editing | Voiceover Production | Music Design | Audio Mix | Motion Graphics"
+  },
+
+  {
+    id: 29,
+    title: "L.A. Screening 2023 | Sizzle Tape",
+    client: "Telemundo | NBC", year: "2023",
+    type: "Sizzle Reel", genre: "General Entertainment", format: "Sales",
+    vimeoId: "1079433522", vertical: false,
+    mainVideo: {
+      vimeoId: "1079433522",
+      title: "L.A. Screening 2023 | Sizzle Tape",
+      description: "For Telemundo's 2023 international sales presentations across Europe, Africa, and beyond, Coco Media created a brand film designed to connect through emotion before anything else. Rooted in the concept Rock You to Your Core, the piece was structured as a bold brand manifesto, using drama, suspense, romance, and adventure to showcase the moments that stay with us long after they happen. From creative concept and script to voice-over direction, editing, graphic design, and animation, Coco shaped every element of the final piece, transforming a global content slate into a single, powerful message: Telemundo stories don't just entertain. They leave a mark."
+    },
+    related: [],
+    extraText: "Concept Development | Editing | Voiceover Production | Music Design | Audio Mix | Motion Graphics"
+  },
+
+  // ── SONY CHANNEL ────────────────────────────────────
+
+  {
+    id: 30,
+    title: "Grey's Anatomy Season 13 | Campaign",
+    client: "Sony Channel", year: "",
+    type: "Campaign", genre: "Dramedy", format: "Series",
+    vimeoId: "1200858665", vertical: false,
+    mainVideo: {
+      vimeoId: "1200858665",
+      title: "Grey's Anatomy Season 13 | Campaign | Friendship",
+      description: "What if a favorite series became more than something you watch, and started to feel like a part of your own life? That was the creative challenge for the Grey's Anatomy campaign on Sony Channel Latin America. Rather than conventional promos, the campaign deployed real-feeling testimonials: Latin Americans recounting their own stories of love, humor, and heartbreak, seamlessly woven with iconic Grey's scenes to reveal an undeniable truth: the show has always been about us. Three genre-specific spots used minimalist two-camera setups, deliberate pacing, and country-specific vernacular to create a confessional intimacy that no polished ad could fake. The unifying concept: La Vida en Serie, life, in series form."
+    },
+    related: [
+      { vimeoId: "1200858640", title: "Grey's Anatomy Season 13 | Campaign | Direction", description: "", vertical: false }
+    ],
+    extraText: "Concept | Scriptwriting | Creative Direction | Editing"
+  },
+
+  // ── BRANDED / OTHER ──────────────────────────────────
+
+  {
+    id: 31,
+    title: "Experiencia FedEx Tank | Short",
+    client: "FedEx | Sony", year: "",
+    type: "Brand Content", genre: "General Entertainment", format: "Short",
+    vimeoId: "1200215217", vertical: false,
+    mainVideo: {
+      vimeoId: "1200215217",
+      title: "Experiencia FedEx Tank | Short",
+      description: "FedEx Tank is a unique pitch competition and branded content initiative created by FedEx in partnership with Shark Tank and Sony Channel. Working alongside Creative Director + Executive Producer Aleja CM, Coco Media led research, story development, pre-production, and production, helping shape the entrepreneurs' journeys from concept to screen. Through compelling backstories, refined pitches, and a 15-minute short film, the project went beyond the competition itself, spotlighting the passion, resilience, and vision behind each business."
+    },
+    related: [],
+    extraText: "Research | Story Development | Pre-Production | Production"
+  },
+
+  {
+    id: 32,
+    title: "Programming Video | AXN Latinoamérica",
+    client: "AXN Latinoamérica", year: "2022",
+    type: "Sizzle Reel", genre: "General Entertainment", format: "Brand",
+    vimeoId: "1200220216", vertical: false,
+    mainVideo: {
+      vimeoId: "1200220216",
+      title: "AXN Latinoamérica | Programming Video",
+      description: ""
+    },
+    related: [],
+    extraText: "Editing | Music Design | Audio Mix | Voice-Over Production"
+  },
+
+  {
+    id: 33,
+    title: "Ole Distribution | Sizzle Tape",
+    client: "Ole Distribution", year: "2020",
+    type: "Sizzle Reel", genre: "General Entertainment", format: "Brand",
+    vimeoId: "1144662845", vertical: false,
+    mainVideo: {
+      vimeoId: "1144662845",
+      title: "Ole Distribution | Sizzle Tape",
+      description: ""
+    },
+    related: [],
+    extraText: "Concept Development | Editing | Music Design | Motion Graphics"
+  },
+
+  {
+    id: 35,
+    title: "Piensa Seguro | Animated Short",
+    client: "Discovery ID", year: "2014",
+    type: "Brand Content", genre: "General Entertainment", format: "Short",
+    vimeoId: "220207798", vertical: false,
+    mainVideo: {
+      vimeoId: "220207798",
+      title: "Piensa Seguro | Animated Short",
+      description: ""
+    },
+    related: [],
+    extraText: "Concept Development | Scriptwriting | Editing",
+    awards: "PROMAX + BDA · Gold · Best Interstitial Campaign Series, 2014\nPROMAX + BDA · Bronze · Interstitial Campaign Series PSA, 2014"
+  },
+
+  {
+    id: 36,
+    title: "Fit Moms | Shorts",
+    client: "Discovery Home + Health", year: "",
+    type: "Brand Content", genre: "General Entertainment", format: "Short",
+    vimeoId: "220209665", vertical: false,
+    mainVideo: {
+      vimeoId: "220209665",
+      title: "Fit Moms | Shorts",
+      description: ""
+    },
+    related: [],
+    extraText: "Concept Development | Scriptwriting | Creative Direction | Filming Supervision"
+  }
+
+  // ── FLAGGED — NOT IN BUILD ───────────────────────────
+  // En Otra Piel (Telemundo) — no Vimeo ID. Confirm with Mary Cruz.
+  // La Suerte de Loli (Telemundo) — no Vimeo ID. Confirm with Mary Cruz.
+  // El Profesor Infiltrado — year missing. Confirm with Mary Cruz.
+  // El César / Jugar con Fuego / No Te Puedes Esconder / Exatlón
+  //   / Jenni Rivera / Dueños del Paraíso / Grey's / FedEx / Fit Moms — years missing.
+
+];
+
+// ── DISPLAY ORDER ────────────────────────────────────
+// Reorder by impact + visual variety. IDs reference PROJECTS_SRC above.
+const ORDER = [1,25,23,21,19,2,22,5,24,29,30,3,4,6,7,10,8,14,13,15,16,17,18,20,11,12,9,26,27,28,35,31,32,33,36];
+const PROJECTS = ORDER.map(id => PROJECTS_SRC.find(p => p.id === id));
+</script>
+
+<!-- GRID PAGE -->
+<div id="page-grid">
+  <div class="grid-wrap">
+    <div class="grid-header">
+      <h1>Our Work</h1>
+      <p>What happens when you combine cultural fluency, technical excellence, and 25+ years of entertainment marketing experience.</p>
+    </div>
+
+    <div class="filter-bar">
+      <div class="filter-select-wrap">
+        <select class="filter-select" id="filter-genre">
+          <option value="">Genre</option>
+        </select>
+      </div>
+      <div class="filter-select-wrap">
+        <select class="filter-select" id="filter-type">
+          <option value="">Type</option>
+        </select>
+      </div>
+      <button class="filter-clear" id="filter-clear">× Clear</button>
+    </div>
+
+    <div class="project-grid" id="grid"></div>
+    <div class="no-results" id="no-results">No projects found for this selection.</div>
+  </div>
+</div>
+
+<!-- DETAIL PAGE -->
+<div id="page-detail" style="display:none">
+  <div class="detail-wrap">
+    <button class="btn-back" id="btn-back">← Our Work</button>
+
+    <div class="project-nav project-nav-top" id="project-nav-top">
+      <button class="project-nav-btn prev" id="nav-prev-top">
+        <span class="project-nav-arrow">←</span>
+        <span class="project-nav-text">
+          <span class="project-nav-label">Previous</span>
+          <span class="project-nav-title" id="nav-prev-title-top"></span>
+        </span>
+      </button>
+      <button class="project-nav-btn next" id="nav-next-top">
+        <span class="project-nav-arrow">→</span>
+        <span class="project-nav-text">
+          <span class="project-nav-label">Next</span>
+          <span class="project-nav-title" id="nav-next-title-top"></span>
+        </span>
+      </button>
+    </div>
+
+    <div class="detail-info">
+      <div class="detail-meta">
+        <span class="detail-client" id="d-client"></span>
+        <span class="detail-year" id="d-year"></span>
+      </div>
+      <h1 class="detail-title" id="d-title"></h1>
+      <div class="detail-type-tag" id="d-type-tag"></div>
+      <p class="video-desc" id="d-desc" style="display:none"></p>
+      <p class="video-desc-loading" id="d-desc-loading">Loading description…</p>
+      <div class="credits" id="d-credits" style="display:none">
+        <span class="credits-label">What We Delivered</span>
+        <span class="credits-text" id="d-credits-text"></span>
+      </div>
+      <div class="awards" id="d-awards" style="display:none">
+        <span class="awards-label">Recognition</span>
+        <span class="awards-text" id="d-awards-text"></span>
+      </div>
+    </div>
+
+    <div class="video-wrap" id="d-video-wrap">
+      <iframe id="d-video" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+
+    <div id="d-related"></div>
+
+    <div class="project-nav" id="project-nav">
+      <button class="project-nav-btn prev" id="nav-prev">
+        <span class="project-nav-arrow">←</span>
+        <span class="project-nav-text">
+          <span class="project-nav-label">Previous</span>
+          <span class="project-nav-title" id="nav-prev-title"></span>
+        </span>
+      </button>
+      <button class="project-nav-btn next" id="nav-next">
+        <span class="project-nav-arrow">→</span>
+        <span class="project-nav-text">
+          <span class="project-nav-label">Next</span>
+          <span class="project-nav-title" id="nav-next-title"></span>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+let activeFilters = { genre: null, type: null };
+
+function fmt(str) {
+  return str ? str.split('|').map(s => s.trim()).join(' · ') : '';
+}
+
+function fmtType(str) {
+  return str ? str.split('|').map(s => s.trim()).join(' + ') : '';
+}
+
+async function getVimeoData(id) {
+  try {
+    const r = await fetch(`https://vimeo.com/api/v2/video/${id}.json`);
+    const d = await r.json();
+    return {
+      thumb: d[0]?.thumbnail_large || d[0]?.thumbnail_medium || '',
+      description: d[0]?.description || ''
+    };
+  } catch { return { thumb: '', description: '' }; }
+}
+
+function createCard(p) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="card-thumb-loading"><span>Loading…</span></div>
+    <div class="card-overlay"></div>
+    <div class="card-hover-label">
+      <h3>${p.title}</h3>
+      <div class="card-type-tag">${fmtType(p.type)}</div>
+      <div class="rule"></div>
+    </div>`;
+  card.addEventListener('click', () => openProject(p));
+  getVimeoData(p.vimeoId).then(({ thumb }) => {
+    if (!thumb) return;
+    const img = document.createElement('img');
+    img.src = thumb; img.alt = p.title; img.loading = 'lazy';
+    card.querySelector('.card-thumb-loading').replaceWith(img);
+  });
+  return card;
+}
+
+function getFiltered() {
+  return PROJECTS.filter(p => {
+    const gOk = !activeFilters.genre ||
+      (p.genre && p.genre.split(',').map(g => g.trim()).includes(activeFilters.genre));
+    const tOk = !activeFilters.type ||
+      (p.type && p.type.split('|').map(t => t.trim()).includes(activeFilters.type));
+    return gOk && tOk;
+  });
+}
+
+function renderAll() {
+  const grid = document.getElementById('grid');
+  PROJECTS.forEach(p => grid.appendChild(createCard(p)));
+  document.getElementById('no-results').style.display = 'none';
+}
+
+function applyFilters() {
+  const hasFilter = !!(activeFilters.genre || activeFilters.type);
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  document.getElementById('filter-clear').style.display = hasFilter ? 'inline-block' : 'none';
+  document.getElementById('filter-genre').classList.toggle('active', !!activeFilters.genre);
+  document.getElementById('filter-type').classList.toggle('active', !!activeFilters.type);
+  if (hasFilter) {
+    const filtered = getFiltered();
+    document.getElementById('no-results').style.display = filtered.length ? 'none' : 'block';
+    filtered.forEach(p => grid.appendChild(createCard(p)));
+  } else {
+    document.getElementById('no-results').style.display = 'none';
+    renderAll();
+  }
+}
+
+function buildFilters() {
+  const genres = new Set();
+  const types = new Set();
+  const typeOrder = ['Trailer','Episodic Promo','BTS Content','Character Profile',
+                     'TV Spot','Sizzle Reel','Campaign','Brand Content'];
+
+  PROJECTS.forEach(p => {
+    if (p.genre) p.genre.split(',').forEach(g => genres.add(g.trim()));
+    if (p.type) p.type.split('|').forEach(t => types.add(t.trim()));
+  });
+
+  const populateSelect = (id, values, ordered) => {
+    const sel = document.getElementById(id);
+    const sorted = ordered
+      ? [...values].sort((a, b) => {
+          const ai = typeOrder.indexOf(a), bi = typeOrder.indexOf(b);
+          if (ai === -1 && bi === -1) return a.localeCompare(b);
+          if (ai === -1) return 1; if (bi === -1) return -1;
+          return ai - bi;
+        })
+      : [...values].sort();
+    sorted.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v; opt.textContent = v;
+      sel.appendChild(opt);
+    });
+  };
+
+  populateSelect('filter-genre', genres, false);
+  populateSelect('filter-type', types, true);
+
+  document.getElementById('filter-genre').addEventListener('change', e => {
+    activeFilters.genre = e.target.value || null;
+    applyFilters();
+  });
+  document.getElementById('filter-type').addEventListener('change', e => {
+    activeFilters.type = e.target.value || null;
+    applyFilters();
+  });
+}
+
+document.getElementById('filter-clear').addEventListener('click', () => {
+  activeFilters = { genre: null, type: null };
+  document.getElementById('filter-genre').value = '';
+  document.getElementById('filter-type').value = '';
+  document.getElementById('filter-clear').style.display = 'none';
+  document.getElementById('filter-genre').classList.remove('active');
+  document.getElementById('filter-type').classList.remove('active');
+  document.getElementById('grid').innerHTML = '';
+  renderAll();
+});
+
+function getVideoRatioClass(item) {
+  if (item.ratio === 'square') return 'square';
+  if (item.vertical) return 'vertical';
+  return '';
+}
+
+async function openProject(p) {
+  document.getElementById('d-client').textContent = p.client;
+  document.getElementById('d-year').textContent = p.year || '';
+  document.getElementById('d-title').textContent = p.mainVideo.title;
+  document.getElementById('d-type-tag').textContent = fmtType(p.type);
+
+  const descEl = document.getElementById('d-desc');
+  const descLoading = document.getElementById('d-desc-loading');
+  descEl.style.display = 'none';
+  descLoading.style.display = 'block';
+
+  const credits = document.getElementById('d-credits');
+  const creditsText = document.getElementById('d-credits-text');
+  if (p.extraText) {
+    creditsText.textContent = fmt(p.extraText);
+    credits.style.display = 'block';
+  } else {
+    credits.style.display = 'none';
+  }
+
+  const awardsEl = document.getElementById('d-awards');
+  const awardsText = document.getElementById('d-awards-text');
+  if (p.awards) {
+    awardsText.textContent = p.awards;
+    awardsEl.style.display = 'block';
+  } else {
+    awardsEl.style.display = 'none';
+  }
+
+  document.getElementById('page-grid').style.display = 'none';
+  document.getElementById('page-detail').style.display = 'block';
+
+  const videoWrap = document.getElementById('d-video-wrap');
+  videoWrap.className = 'video-wrap';
+  const mainRatioClass = getVideoRatioClass({ ratio: p.ratio, vertical: p.vertical });
+  if (mainRatioClass) videoWrap.classList.add(mainRatioClass);
+  document.getElementById('d-video').src =
+    `https://player.vimeo.com/video/${p.mainVideo.vimeoId}?color=734DFF&title=0&byline=0&portrait=0`;
+
+  const storedDesc = p.mainVideo.description || '';
+  if (storedDesc) {
+    descLoading.style.display = 'none';
+    descEl.textContent = storedDesc;
+    descEl.style.display = 'block';
+  } else {
+    getVimeoData(p.mainVideo.vimeoId).then(({ description }) => {
+      descLoading.style.display = 'none';
+      const text = description || storedDesc;
+      if (text) {
+        descEl.textContent = text;
+        descEl.style.display = 'block';
+      }
+    });
+  }
+
+  const rel = document.getElementById('d-related');
+  rel.innerHTML = '';
+  if (p.related && p.related.length > 0) {
+    const wrap = document.createElement('div');
+    wrap.innerHTML = '<div class="divider"></div>';
+    p.related.forEach(v => {
+      const block = document.createElement('div');
+      block.className = 'related-block';
+      const ratioClass = getVideoRatioClass(v);
+      block.innerHTML = `
+        <h2 class="related-title">${v.title}</h2>
+        <div class="video-wrap${ratioClass ? ' ' + ratioClass : ''}">
+          <iframe src="https://player.vimeo.com/video/${v.vimeoId}?color=734DFF&title=0&byline=0&portrait=0"
+            allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+        </div>`;
+      wrap.appendChild(block);
+    });
+    rel.appendChild(wrap);
+  }
+
+  setupProjectNav(p);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function setupProjectNav(p) {
+  const idx = PROJECTS.findIndex(proj => proj.id === p.id);
+  const prevProject = PROJECTS[(idx - 1 + PROJECTS.length) % PROJECTS.length];
+  const nextProject = PROJECTS[(idx + 1) % PROJECTS.length];
+
+  document.getElementById('nav-prev-title').textContent = prevProject.title;
+  document.getElementById('nav-next-title').textContent = nextProject.title;
+  document.getElementById('nav-prev-title-top').textContent = prevProject.title;
+  document.getElementById('nav-next-title-top').textContent = nextProject.title;
+
+  document.getElementById('nav-prev').onclick = () => openProject(prevProject);
+  document.getElementById('nav-next').onclick = () => openProject(nextProject);
+  document.getElementById('nav-prev-top').onclick = () => openProject(prevProject);
+  document.getElementById('nav-next-top').onclick = () => openProject(nextProject);
+}
+
+document.getElementById('btn-back').addEventListener('click', () => {
+  document.getElementById('d-video').src = '';
+  document.getElementById('page-detail').style.display = 'none';
+  document.getElementById('page-grid').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+buildFilters();
+renderAll();
+
+function checkDeepLink() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const idParam = params.get('id');
+    if (!idParam) return;
+    const project = PROJECTS.find(p => p.id === parseInt(idParam));
+    if (project) openProject(project);
+  } catch(e) {}
+}
+
+checkDeepLink();
+})();
+</script>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo"><img src="assets/brand/coco-media-logo-white.png" alt="Coco Media" width="59" height="60"></span>
+        <p>Be Seen. Truly Seen.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="projects.html">Projects</a></li>
+        </ul>
+      </nav>
+      <!-- Legal links hidden for the review preview (Oct 6) until real Privacy/Terms/Accessibility text is in. Remove "hidden" to restore. -->
+      <nav class="footer-legal" aria-label="Legal" hidden>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms and Conditions</a></li>
+          <li><a href="accessibility.html">Accessibility Statement</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container">
+      <p class="footer-copyright">&copy; <span id="year"></span> Coco Media Producciones &middot; Miami, FL and Chicago, IL &middot; <a href="mailto:info@cocomedia.tv">info@cocomedia.tv</a></p>
+      <p class="footer-credit">Made with love by <a href="https://28cylinders.com" target="_blank" rel="noopener">28 Cylinders</a></p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

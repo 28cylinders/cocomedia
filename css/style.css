@@ -1,0 +1,625 @@
+/* ==========================================================================
+   Coco Media — base stylesheet
+   Status: DESIGN SYSTEM v1 (Sept 24, 2026)
+   Palette confirmed against Sofi's actual logo files (sampled pixel values
+   from assets/brand/coco-media-mark-*.png) — these are the real brand
+   colors, not placeholders. Visual direction from Sofi's reference set:
+   refined teal/violet/pink, an overlapping-circles/orb motif pulled from
+   the logo mark itself (see .orb-field, .ring-frame, .divider-orbs below),
+   and a balanced mix of dark and light sections (not all-black).
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Comfortaa:wght@400;500;700&display=swap');
+
+:root {
+  /* CONFIRMED BRAND PALETTE — matches assets/brand/coco-media-mark-*.png exactly */
+  --color-teal: #0FBABA;
+  --color-violet: #734DFF;
+  --color-pink: #DD0E69;
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+
+  --font-heading: 'Oswald', sans-serif;
+  --font-body: 'Comfortaa', sans-serif;
+
+  --size-h1: clamp(2.5rem, 5vw, 4.375rem); /* ~70px at desktop, per brief */
+  --size-body: 0.9375rem; /* 15px, per brief */
+
+  --section-padding-y: clamp(3rem, 6vw, 6rem);
+  --container-width: 1200px;
+  --container-pad-x: 1.5rem;
+
+  --nav-height: 84px;
+}
+
+/* Reset ------------------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: 1.6;
+  background: var(--color-white);
+  color: var(--color-black);
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin: 0 0 1rem;
+}
+h1 { font-size: var(--size-h1); }
+h2 { font-size: clamp(1.75rem, 3.5vw, 2.75rem); }
+h3 { font-size: 1.25rem; }
+p { margin: 0 0 1rem; }
+
+/* IMPORTANT: no gray text anywhere (ADA rule from brief) — every text
+   color in this file must resolve to pure black or pure white depending
+   on the background it sits on. Do not introduce #666/#999/etc. */
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--container-pad-x);
+}
+
+.section {
+  padding: var(--section-padding-y) 0;
+}
+.section--dark {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+.section--light {
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
+.copy-tbd {
+  /* Visual flag ONLY for this working scaffold — remove once real copy
+     is dropped in. Never ships to production. */
+  outline: 2px dashed var(--color-violet);
+  outline-offset: 6px;
+  padding: 0.25rem 0.5rem;
+  display: inline-block;
+}
+
+/* Buttons ------------------------------------------------------------------ */
+.btn {
+  display: inline-block;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  border: 2px solid currentColor;
+  transition: opacity 0.2s ease;
+}
+.btn:hover { opacity: 0.8; }
+.btn-cta {
+  background: var(--color-pink);
+  border-color: var(--color-pink);
+  color: var(--color-white);
+}
+/* Secondary solid button — same pill as .btn-cta so the two read as one
+   family at the same visual weight, just a different brand color. Tried
+   on the hero's "View Our Work" Sept 25, then Sofi asked to go back to a
+   plain white outline there for now — keeping this class defined in case
+   it's wanted again later, just not applied anywhere at the moment. */
+.btn-secondary {
+  background: var(--color-violet);
+  border-color: var(--color-violet);
+  color: var(--color-white);
+}
+
+/* Header / nav -------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-white);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.header-inner {
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+.logo {
+  position: relative;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+}
+.logo-img { height: 34px; width: auto; max-width: 140px; display: block; }
+.logo-img--dark { display: none; }
+
+/* Social icons — nav, next to the primary links. Placeholder hrefs until
+   Sofi sends real profile URLs (see README open items). */
+.social-icons {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+.social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  transition: opacity 0.2s ease;
+}
+.social-icons a:hover { opacity: 0.65; }
+.social-icons svg { width: 100%; height: 100%; fill: currentColor; display: block; }
+.main-nav ul {
+  display: flex;
+  gap: 2rem;
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+}
+/* Violet, not pink, for the active-page indicator — pink is already the
+   solid CTA button right next to it in the same header row, so this
+   keeps that from being two competing pinks and brings a second brand
+   color into the nav (Sofi's Sept 25 "use all three evenly" note).
+   Violet passes AA contrast as text on white; teal doesn't at this size,
+   so it stays decorative-only (ring-frame borders, dot accents, etc.). */
+.main-nav a[aria-current="page"] { color: var(--color-violet); }
+.nav-toggle { display: none; }
+
+@media (max-width: 860px) {
+  .header-inner { flex-wrap: wrap; }
+  .header-inner:has(.main-nav.is-open) { height: auto; min-height: var(--nav-height); padding-bottom: 1.5rem; }
+  .logo { order: 1; }
+  .nav-toggle { order: 2; }
+  .main-nav { display: none; }
+  /* Open state: the nav drops in-flow below the logo/toggle row (not an
+     overlay), pushing page content down. A solid white panel regardless of
+     header state, since body.page-home's header is transparent over the
+     hero video and needs a readable surface once opened. */
+  .main-nav.is-open {
+    display: block;
+    order: 10;
+    flex-basis: 100%;
+    width: 100%;
+    background: var(--color-white);
+    color: var(--color-black);
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .main-nav.is-open ul {
+    flex-direction: column;
+    gap: 1.15rem;
+    font-size: 1rem;
+  }
+  .main-nav.is-open a[aria-current="page"] { color: var(--color-violet); }
+  .header-inner .btn-cta { display: none; }
+  .header-inner .social-icons { display: none; }
+  .header-inner:has(.main-nav.is-open) .btn-cta,
+  .header-inner:has(.main-nav.is-open) .social-icons {
+    display: flex;
+    order: 11;
+    flex-basis: 100%;
+    width: 100%;
+    justify-content: center;
+  }
+  .header-inner:has(.main-nav.is-open) .btn-cta {
+    text-align: center;
+    margin-top: 1.25rem;
+  }
+  .header-inner:has(.main-nav.is-open) .social-icons {
+    order: 12;
+    color: var(--color-black);
+    gap: 1.75rem;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .nav-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: 0;
+    padding: 0.5rem;
+  }
+  .nav-toggle span {
+    width: 24px;
+    height: 2px;
+    background: var(--color-black);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+
+/* Footer --------------------------------------------------------------- */
+.site-footer {
+  background: var(--color-black);
+  color: var(--color-white);
+  padding: var(--section-padding-y) 0 2rem;
+}
+.footer-inner {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+/* Footer logo — the full white stacked lockup Sofi sent Sept 25. Reads
+   fine directly on the black footer, no badge needed. */
+.footer-logo {
+  display: inline-block;
+  margin-bottom: 0.85rem;
+}
+.footer-logo img { height: 52px; width: auto; display: block; }
+.footer-nav a, .footer-legal a { display: block; padding: 0.25rem 0; }
+.footer-copyright {
+  padding-top: 1.5rem;
+  font-size: 0.8rem;
+  margin: 0;
+}
+/* "Made with love by 28 Cylinders" credit — Sofi asked for this to be very
+   subtle. Kept pure white per the no-gray-text rule; subtlety comes from
+   the small size and quiet placement under the copyright line, not from
+   dimming the color. */
+.footer-credit {
+  padding-top: 0.6rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+.footer-credit a { text-decoration: underline; text-underline-offset: 2px; transition: opacity 0.2s ease; }
+.footer-credit a:hover { opacity: 0.65; }
+
+/* Orb / circle motif -------------------------------------------------------
+   Pulled directly from the logo mark (two overlapping circles). Used as a
+   quiet background texture on dark sections and as a divider device — never
+   competing with text, which always stays pure black/white per the no-gray
+   rule above. */
+.orb-field {
+  position: relative;
+  overflow: hidden;
+}
+/* Flat solid circles — no CSS gradient functions anywhere, per Sofi's Sept 24
+   direction. Drawn as an inline SVG (three solid-fill circles) instead of a
+   radial-gradient, so it's a true flat shape, not a soft blend. */
+.orb-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.16;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 400'%3E%3Ccircle cx='144' cy='120' r='100' fill='%230FBABA'/%3E%3Ccircle cx='1020' cy='60' r='90' fill='%23734DFF'/%3E%3Ccircle cx='936' cy='352' r='85' fill='%23DD0E69'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.orb-field > .container { position: relative; z-index: 1; }
+
+.dot-grid {
+  position: relative;
+}
+.dot-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Masked solid color instead of a radial-gradient dot trick — still
+     adapts to currentColor (dark or light section), no gradient function. */
+  background-color: currentColor;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Ccircle cx='11' cy='11' r='1.5' fill='%23000'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Ccircle cx='11' cy='11' r='1.5' fill='%23000'/%3E%3C/svg%3E");
+  -webkit-mask-repeat: repeat;
+  mask-repeat: repeat;
+  -webkit-mask-size: 22px 22px;
+  mask-size: 22px 22px;
+  opacity: 0.06;
+}
+.dot-grid > .container { position: relative; z-index: 1; }
+
+/* Divider echoing the logo's two overlapping circles, used between
+   sections to tie the brand mark into the page rhythm. */
+.divider-orbs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem 0;
+  background: var(--color-white);
+}
+.divider-orbs svg { width: 64px; height: auto; display: block; }
+
+/* Ring-framed icons/photos — the circular crop treatment from the logo
+   mark and reference imagery, ready for card icons and (later) photos. */
+.ring-frame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--color-teal);
+  margin-bottom: 1rem;
+}
+.ring-frame img { height: 30px; width: auto; }
+.grid-3 .card:nth-child(2) .ring-frame,
+.grid-4 .card:nth-child(2) .ring-frame { border-color: var(--color-violet); }
+.grid-3 .card:nth-child(3) .ring-frame,
+.grid-4 .card:nth-child(3) .ring-frame { border-color: var(--color-pink); }
+.card--dark .ring-frame img { filter: invert(1); }
+
+/* Hero — video background ---------------------------------------------------
+   Placeholder video (no <source> yet, see index.html comment) sits behind a
+   dark overlay so the LOCKED "Be Seen" copy stays legible over whatever
+   footage lands here later. */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: var(--color-black);
+  color: var(--color-white);
+  overflow: hidden;
+}
+.hero .container { max-width: 900px; }
+.hero .eyebrow {
+  font-family: var(--font-heading);
+  color: var(--color-teal);
+  letter-spacing: 0.08em;
+}
+.hero-video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding-top: var(--nav-height);
+}
+.hero-content .btn {
+  margin-top: 0.5rem;
+}
+/* Hero title — "Be Seen" (no period, dropped Sept 25), "Truly Seen." sub
+   line removed for now (still in the markup history/CSS below, easy to
+   restore). */
+.hero-title-main {
+  display: block;
+  /* Sofi's Sept 25 note: full opacity felt too heavy/flat against the
+     video. A slight reduction lets the footage read through a little
+     without hurting legibility — pushing much lower than this starts
+     working against the point of oversized type (a busier video frame
+     can start showing through and competing with the letterforms). */
+  opacity: 0.88;
+  /* One continuous fluid clamp made "Be Seen" bigger than made sense on
+     tablets/phablets (a single word taking up most of the screen before
+     it ever reaches the width-matching size). Two explicit tiers instead:
+     a modest, comfortable size below 900px (where the hero container
+     hasn't hit its own 900px max-width yet and the paragraph is still
+     reflowing anyway, so there's no fixed width to match), and a fixed
+     size at 900px+ that matches the paragraph's width — verified against
+     the real Oswald font (see README "Font-accurate testing"), not the
+     sandbox's fallback, which measures meaningfully different and gave a
+     false match earlier. */
+  font-size: clamp(2.75rem, 12vw, 5rem);
+}
+@media (min-width: 900px) {
+  .hero-title-main {
+    /* Fixed, not fluid — the hero container is pinned at 900px max-width
+       from here up, so the paragraph's wrapped width stops changing too;
+       matching it needs one constant value, not a vw-based one. */
+    font-size: 16.125rem;
+  }
+}
+.hero-title-sub {
+  display: block;
+  font-size: clamp(1.1rem, 2.2vw, 1.75rem);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  margin-top: 0.4rem;
+}
+
+/* Generic section layouts ------------------------------------------------- */
+.grid-3 {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.grid-4 {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.card {
+  padding: 2rem;
+  border-radius: 12px;
+  background: var(--color-white);
+  color: var(--color-black);
+  /* Brief explicitly says: no black outlines on cards */
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+}
+.card--dark {
+  background: var(--color-black);
+  color: var(--color-white);
+}
+/* Testimonial attribution — no leading em dash (house style), a quiet
+   label treatment carries the "who said this" role instead. */
+.card footer {
+  margin-top: 1rem;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Client-logo marquee — replaces a stationary logo row with a continuous
+   scroll per Sofi's Sept 24 note. The track duplicates the logo set and
+   loops seamlessly via translateX(-50%); pauses on hover, disabled for
+   prefers-reduced-motion. */
+.logo-marquee {
+  overflow: hidden;
+  opacity: 0.7;
+}
+.logo-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: max-content;
+  animation: logo-marquee-scroll 26s linear infinite;
+}
+.logo-marquee:hover .logo-marquee-track {
+  animation-play-state: paused;
+}
+.logo-marquee-track img {
+  max-height: 24px;
+  width: auto;
+  flex-shrink: 0;
+}
+@keyframes logo-marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee-track { animation: none; }
+  .logo-marquee { overflow-x: auto; }
+}
+
+/* Home-page header — transparent over the hero video, solid once scrolled
+   past it. Only body.page-home gets this treatment; other pages keep the
+   plain solid header. */
+body.page-home .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* Flat translucent scrim + blur, not a gradient — the hero's own overlay
+     (rgba(0,0,0,0.55) across the whole section) wasn't always enough right
+     at the top strip against brighter footage, so the header gets its own
+     solid tint on top of it for reliable contrast on the logo/nav/icons. */
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom-color: transparent;
+  color: var(--color-white);
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+body.page-home .site-header .logo-img--dark { display: none; }
+body.page-home .site-header .logo-img--light { display: block; }
+body.page-home .site-header .nav-toggle span { background: var(--color-white); }
+body.page-home .site-header.is-scrolled {
+  background: var(--color-white);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: rgba(0,0,0,0.08);
+  color: var(--color-black);
+}
+body.page-home .site-header.is-scrolled .logo-img--light { display: none; }
+body.page-home .site-header.is-scrolled .logo-img--dark { display: block; }
+body.page-home .site-header.is-scrolled .nav-toggle span { background: var(--color-black); }
+/* Mobile menu open on Home: force the same solid/readable state as
+   is-scrolled regardless of hero scroll position, since the dropdown panel
+   itself is opaque white and a transparent top bar above it would leave the
+   toggle icon and logo unreadable against the hero video. */
+body.page-home .site-header:has(.main-nav.is-open) {
+  background: var(--color-white);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: rgba(0,0,0,0.08);
+  color: var(--color-black);
+}
+body.page-home .site-header:has(.main-nav.is-open) .logo-img--light { display: none; }
+body.page-home .site-header:has(.main-nav.is-open) .logo-img--dark { display: block; }
+body.page-home .site-header:has(.main-nav.is-open) .nav-toggle span { background: var(--color-black); }
+
+/* ==========================================================================
+   Home v2 sections (Oct 6, 2026): new order + approved copy
+   ========================================================================== */
+.section-intro { max-width: 760px; font-size: 1.05rem; margin-bottom: 2.5rem; }
+.card-tags {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.8rem;
+  margin: 1.25rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.3);
+}
+.accent-teal { color: var(--color-teal); }
+
+/* Featured Work */
+.section-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+.section-head h2 { margin: 0; }
+.feature-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.feature-card { display: flex; flex-direction: column; gap: 0.35rem; }
+.feature-thumb {
+  display: block; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden;
+  background: var(--color-black) center / cover no-repeat; margin-bottom: 0.6rem;
+  transition: transform 0.3s ease;
+}
+.feature-card:hover .feature-thumb { transform: scale(1.02); }
+.feature-title { font-family: var(--font-heading); text-transform: uppercase; font-size: 1.2rem; line-height: 1.15; }
+.feature-type { font-size: 0.85rem; }
+
+/* Why Coco */
+.why-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 3rem; align-items: start; }
+.why-title { font-size: clamp(4rem, 12vw, 10rem); font-weight: 700; line-height: 0.88; margin: 0; }
+.why-copy p { font-size: 1.1rem; line-height: 1.75; }
+.based-in { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem !important; margin-top: 1.5rem; }
+.based-in span { color: var(--color-teal); margin-left: 0.5rem; }
+@media (max-width: 860px) { .why-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
+
+.routes { margin-top: clamp(3rem, 6vw, 5rem); }
+.routes-cols { display: flex; justify-content: space-between; font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.8rem; padding: 0 2%; }
+.routes-map { width: 100%; height: auto; display: block; }
+.routes-map text { font-family: var(--font-heading); text-transform: uppercase; fill: var(--color-white); font-size: 17px; letter-spacing: 0.03em; }
+.routes-map .hub-label { letter-spacing: 0.3em; font-size: 16px; }
+.routes-map .route { fill: none; stroke-width: 3; }
+.routes-map .ring { fill: none; stroke: var(--color-white); stroke-opacity: 0.3; }
+.routes-list { display: none; }
+.routes-list li { padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.3); font-family: var(--font-heading); text-transform: uppercase; font-size: 1.05rem; line-height: 1.3; }
+.routes-list span { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.3rem; }
+.routes-list i { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+@media (max-width: 760px) { .routes-map, .routes-cols { display: none; } .routes-list { display: block; } }
+@media (prefers-reduced-motion: reduce) { .routes-map .mover { display: none; } }
+
+/* Tagline 2 sits right after Why Coco (both dark), separated by a hairline like the current site */
+#why-coco + #tagline-2 .container { border-top: 1px solid rgba(255,255,255,0.3); padding-top: var(--section-padding-y); }
+#why-coco + #tagline-2 { padding-top: 0; }
+#tagline-2 h2 { text-align: center; }
+
+/* Awards (first pass) */
+.awards-grid { display: grid; grid-template-columns: auto 1fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+.awards-stat { display: flex; flex-direction: column; }
+.awards-num { font-family: var(--font-heading); font-weight: 700; font-size: clamp(6rem, 16vw, 12rem); line-height: 0.85; }
+.awards-label { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.08em; font-size: clamp(1.1rem, 2vw, 1.5rem); margin-top: 0.5rem; }
+.awards-list li { display: grid; grid-template-columns: 18px 1fr; column-gap: 1rem; padding: 1.25rem 0; border-bottom: 1px solid rgba(0,0,0,0.15); }
+.awards-list li:first-child { border-top: 1px solid rgba(0,0,0,0.15); }
+.awards-list strong { display: block; font-family: var(--font-heading); text-transform: uppercase; font-size: 1.25rem; font-weight: 600; }
+.award-dot { width: 14px; height: 14px; border-radius: 50%; grid-row: span 2; margin-top: 0.45rem; }
+@media (max-width: 760px) { .awards-grid { grid-template-columns: 1fr; } }
