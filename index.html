@@ -119,67 +119,50 @@
       </div>
     </section>
 
-    <!-- 3. WHAT WE DO — copy approved Oct 6. Moved up from #6 so visitors
-         learn what Coco makes before the "why". -->
-    <section class="section section--dark" id="what-we-do">
+    <!-- 3. WHAT WE DO — copy approved Oct 6. Editorial layout (Oct 6):
+         display title + intro mirror Why Coco; services are full-width
+         rows split by hairlines, icon + name left, description + tags right.
+         Light section so it contrasts with the dark Why Coco below. -->
+    <section class="section section--light" id="what-we-do">
       <div class="container">
-        <h2>What We Do</h2>
-        <p class="section-intro">Trailers, promos, behind-the-scenes content, and campaigns that carry stories across languages and markets. English to Spanish, Spanish to English, and everything in between, from first concept to final delivery.</p>
-        <div class="grid-3">
-          <div class="card card--dark">
-            <span class="ring-frame"><img src="assets/icons/icon-lightbulb.png" alt=""></span>
-            <h3>Creative Strategy + Development</h3>
-            <p>Campaign concepts, scripts, and creative direction for Spanish, English, and bilingual audiences.</p>
-            <p class="card-tags">Concepts · Scriptwriting · Campaign Strategy · Creative Direction</p>
-          </div>
-          <div class="card card--dark">
-            <span class="ring-frame"><img src="assets/icons/icon-collaboration.png" alt=""></span>
-            <h3>Campaign Management + Executive Producer Services</h3>
-            <p>We manage the campaign from kickoff to delivery: timelines, platforms, stakeholders, and every version in between.</p>
-            <p class="card-tags">Trailers · On-Air + Digital · Episodic Promos · BTS Content</p>
-          </div>
-          <div class="card card--dark">
-            <span class="ring-frame"><img src="assets/icons/icon-video-editing.png" alt=""></span>
-            <h3>Post-Production</h3>
-            <p>In-house editing, sound design, motion graphics, and color grading that finish the idea and make it land.</p>
-            <p class="card-tags">Editorial · Sound Design · Motion Graphics · Color Grading</p>
-            <!-- Reminder: always "Post-Production", never "Production + Post" (insurance/liability accuracy) -->
-          </div>
+        <div class="split-head">
+          <h2 class="display-title">What<br>We Do</h2>
+          <p class="split-intro">Trailers, promos, behind-the-scenes content, and campaigns that carry stories across languages and markets. English to Spanish, Spanish to English, and everything in between, from first concept to final delivery.</p>
         </div>
-      </div>
-    </section>
-
-    <!-- 4. FEATURED WORK — STAND-IN for review: the earlier Vimeo-matched
-         list. Final 4 still to be confirmed with Mary Cruz. Cards deep-link
-         into projects.html?id=N; thumbnails load from Vimeo via main.js. -->
-    <section class="section section--light" id="featured-work">
-      <div class="container">
-        <div class="section-head">
-          <h2>Featured Work</h2>
-          <a href="projects.html" class="btn">View All Projects</a>
-        </div>
-        <div class="feature-grid">
-          <a class="feature-card" href="projects.html?id=1">
-            <span class="feature-thumb" data-vimeo-thumb="1144681763"></span>
-            <span class="feature-title">Mujeres Asesinas Season 3</span>
-            <span class="feature-type">Behind the Scenes + Character Profiles</span>
-          </a>
-          <a class="feature-card" href="projects.html?id=7">
-            <span class="feature-thumb" data-vimeo-thumb="1138162833"></span>
-            <span class="feature-title">Es Por Su Bien</span>
-            <span class="feature-type">Behind the Scenes + Character Profiles</span>
-          </a>
-          <a class="feature-card" href="projects.html?id=12">
-            <span class="feature-thumb" data-vimeo-thumb="1144652042"></span>
-            <span class="feature-title">Montecristo</span>
-            <span class="feature-type">Behind the Scenes</span>
-          </a>
-          <a class="feature-card" href="projects.html?id=29">
-            <span class="feature-thumb" data-vimeo-thumb="1079433522"></span>
-            <span class="feature-title">L.A. Screening 2023</span>
-            <span class="feature-type">Sizzle Tape</span>
-          </a>
-        </div>
+        <ul class="service-rows">
+          <li class="service-row">
+            <div class="service-name">
+              <span class="ring-frame ring-frame--teal"><img src="assets/icons/icon-lightbulb.png" alt=""></span>
+              <h3>Creative Strategy + Development</h3>
+            </div>
+            <div class="service-body">
+              <p>Campaign concepts, scripts, and creative direction for Spanish, English, and bilingual audiences.</p>
+              <p class="service-tags">Concepts · Scriptwriting · Campaign Strategy · Creative Direction</p>
+            </div>
+          </li>
+          <li class="service-row">
+            <div class="service-name">
+              <span class="ring-frame ring-frame--violet"><img src="assets/icons/icon-collaboration.png" alt=""></span>
+              <h3>Campaign Management + Executive Producer Services</h3>
+            </div>
+            <div class="service-body">
+              <p>We manage the campaign from kickoff to delivery: timelines, platforms, stakeholders, and every version in between.</p>
+              <p class="service-tags">Trailers · On-Air + Digital · Episodic Promos · BTS Content</p>
+            </div>
+          </li>
+          <li class="service-row">
+            <div class="service-name">
+              <span class="ring-frame ring-frame--pink"><img src="assets/icons/icon-video-editing.png" alt=""></span>
+              <h3>Post-Production</h3>
+            </div>
+            <div class="service-body">
+              <p>In-house editing, sound design, motion graphics, and color grading that finish the idea and make it land.</p>
+              <p class="service-tags">Editorial · Sound Design · Motion Graphics · Color Grading</p>
+              <!-- Reminder: always "Post-Production", never "Production + Post" (insurance/liability accuracy) -->
+            </div>
+          </li>
+        </ul>
+        <a href="services.html" class="btn btn-dark-outline">Our Services</a>
       </div>
     </section>
 
@@ -188,12 +171,13 @@
          v2, no title per Sofi. -->
     <section class="section section--dark" id="why-coco">
       <div class="container">
-        <div class="why-grid">
-          <h2 class="why-title">Why<br>Coco</h2>
-          <div class="why-copy">
+        <div class="split-head split-head--top">
+          <h2 class="display-title">Why<br>Coco</h2>
+          <div class="split-intro">
             <p>For almost two decades, Coco Media has created campaigns, trailers, and behind-the-scenes content for Hispanic and Latin American audiences.</p>
             <p>We help studios, streamers, networks, distributors, and entertainment brands connect with those audiences, finding each story's cultural relevance without losing what makes it unique, so audiences see themselves in your content.</p>
             <p class="based-in">Based in <span>Miami · Chicago</span></p>
+            <a href="about.html" class="btn">Learn More</a>
           </div>
         </div>
 
@@ -243,21 +227,36 @@
       </div>
     </section>
 
-    <!-- 7. AWARDS — STAND-IN first pass for review (Mary Cruz rejected the
-         old row list). Only place awards appear sitewide. Award names from
-         the brief's About "Award-Winning Work" card. -->
-    <section class="section section--light" id="awards">
+    <!-- 7. FEATURED WORK (moved Oct 6: ends the page on the proof, right before the CTA) — STAND-IN for review: the earlier Vimeo-matched
+         list. Final 4 still to be confirmed with Mary Cruz. Cards deep-link
+         into projects.html?id=N; thumbnails load from Vimeo via main.js. -->
+    <section class="section section--light" id="featured-work">
       <div class="container">
-        <div class="awards-grid">
-          <div class="awards-stat">
-            <span class="awards-num">22+</span>
-            <span class="awards-label">International Awards</span>
-          </div>
-          <ul class="awards-list">
-            <li><span class="award-dot" style="background:#734DFF"></span><strong>Hamburg World Media Festival</strong>Grand Prix + Gold</li>
-            <li><span class="award-dot" style="background:#DD0E69"></span><strong>Telly Awards</strong>Winner</li>
-            <li><span class="award-dot" style="background:#0FBABA"></span><strong>Promax + BDA</strong>Multiple wins across Latin America and North America</li>
-          </ul>
+        <div class="section-head section-head--display">
+          <h2 class="display-title">Featured<br>Work</h2>
+          <a href="projects.html" class="btn">View All Projects</a>
+        </div>
+        <div class="feature-grid">
+          <a class="feature-card" href="projects.html?id=1">
+            <span class="feature-thumb" data-vimeo-thumb="1144681763"></span>
+            <span class="feature-title">Mujeres Asesinas Season 3</span>
+            <span class="feature-type">Behind the Scenes + Character Profiles</span>
+          </a>
+          <a class="feature-card" href="projects.html?id=7">
+            <span class="feature-thumb" data-vimeo-thumb="1138162833"></span>
+            <span class="feature-title">Es Por Su Bien</span>
+            <span class="feature-type">Behind the Scenes + Character Profiles</span>
+          </a>
+          <a class="feature-card" href="projects.html?id=12">
+            <span class="feature-thumb" data-vimeo-thumb="1144652042"></span>
+            <span class="feature-title">Montecristo</span>
+            <span class="feature-type">Behind the Scenes</span>
+          </a>
+          <a class="feature-card" href="projects.html?id=29">
+            <span class="feature-thumb" data-vimeo-thumb="1079433522"></span>
+            <span class="feature-title">L.A. Screening 2023</span>
+            <span class="feature-type">Sizzle Tape</span>
+          </a>
         </div>
       </div>
     </section>
@@ -276,7 +275,7 @@
     <div class="container footer-inner">
       <div class="footer-brand">
         <span class="footer-logo"><img src="assets/brand/coco-media-logo-white.png" alt="Coco Media" width="59" height="60"></span>
-        <p>Be Seen. Truly Seen.</p>
+        <p class="footer-tagline">Be Seen. <em>Truly Seen.</em></p>
       </div>
       <nav class="footer-nav" aria-label="Footer">
         <ul>
