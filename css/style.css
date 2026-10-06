@@ -705,3 +705,63 @@ body.page-home .site-header:has(.main-nav.is-open) .nav-toggle span { background
   .feature-grid::-webkit-scrollbar { display: none; }
   .feature-card { flex: 0 0 80%; scroll-snap-align: start; }
 }
+
+/* ==========================================================================
+   Circular textures (Oct 6) — original SVGs in assets/textures/, drawn from
+   Sofi's reference set (concentric rings, radial dots, halftone). Rule:
+   sporadic and tasteful, always cropped off an edge, never behind body
+   copy at full strength. Current uses: hero (radial dots), Nosotros le
+   ponemos coco (overlapping rings), CTA on every page (concentric arc),
+   Services intro (radial dots). halftone-corner.svg is reserved for photo
+   overlays (About founder photo, project stills).
+   Mask-based textures take currentColor, so they work on dark and light.
+   ========================================================================== */
+.tx { position: relative; overflow: hidden; isolation: isolate; }
+.tx > .container { position: relative; z-index: 1; }
+.tx::before { content: ""; position: absolute; pointer-events: none; z-index: 0; }
+
+.tx-arc::before {
+  width: clamp(420px, 55vw, 780px); aspect-ratio: 1;
+  right: -14%; top: -48%;
+  background: currentColor;
+  -webkit-mask: url("../assets/textures/rings-arc.svg") center / contain no-repeat;
+          mask: url("../assets/textures/rings-arc.svg") center / contain no-repeat;
+  opacity: 0.22;
+}
+.section--light.tx-arc::before { opacity: 0.12; }
+
+.tx-dots::before {
+  width: clamp(280px, 34vw, 480px); aspect-ratio: 1;
+  right: -8%; top: -30%;
+  background: currentColor;
+  -webkit-mask: url("../assets/textures/dots-radial.svg") center / contain no-repeat;
+          mask: url("../assets/textures/dots-radial.svg") center / contain no-repeat;
+  opacity: 0.22;
+}
+
+/* Overlapping rings: black-filled discs occlude the rings beneath, so this
+   one is image-based and only for pure-black sections. */
+.tx-rings::before {
+  width: clamp(260px, 30vw, 420px); aspect-ratio: 600 / 640;
+  left: -6%; top: 50%; transform: translateY(-50%);
+  background: url("../assets/textures/rings-overlap.svg") center / contain no-repeat;
+  opacity: 0.16;
+}
+
+/* Hero: radial dots over the video, cropped top-right */
+.tx-hero-dots::after {
+  content: ""; position: absolute; pointer-events: none; z-index: 1;
+  width: clamp(260px, 36vw, 560px); aspect-ratio: 1;
+  right: -12%; bottom: -16%;
+  background: var(--color-white);
+  -webkit-mask: url("../assets/textures/dots-radial.svg") center / contain no-repeat;
+          mask: url("../assets/textures/dots-radial.svg") center / contain no-repeat;
+  opacity: 0.28;
+}
+.tx-hero-dots .hero-content { z-index: 2; }
+
+@media (max-width: 760px) {
+  .tx-arc::before { right: -75%; top: -30%; opacity: 0.14; }
+  .tx-rings::before { left: -30%; opacity: 0.12; }
+  .tx-hero-dots::after { right: -35%; bottom: -8%; }
+}
