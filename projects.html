@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="robots" content="noindex, nofollow"><!-- PREVIEW ONLY: remove at launch -->
+  <meta name="robots" content="noindex, nofollow"><!-- preview copy only -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects | Coco Media</title>
+  <title>Our Work | Trailers, Promos + Behind the Scenes | Coco Media</title>
   <meta name="description" content="A selection of Coco Media's entertainment marketing and post-production work for Telemundo, VIX+, and other premium platforms.">
   <meta property="og:title" content="Our Work | Coco Media">
   <meta property="og:description" content="Entertainment marketing and post-production work for Telemundo, VIX+, and other premium platforms.">
@@ -13,6 +13,17 @@
   <link rel="icon" href="assets/favicon/favicon.ico">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/favicon-192.png">
   <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Comfortaa:wght@400;500;700&display=swap">
+  <link rel="canonical" href="https://cocomedia.tv/projects.html">
+  <meta property="og:site_name" content="Coco Media">
+  <meta property="og:image" content="https://cocomedia.tv/assets/brand/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Coco Media logo">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#000000">
   <link rel="stylesheet" href="css/style.css">
   <style>
   /* ==========================================================================
@@ -29,16 +40,16 @@
      rotation used elsewhere on the site. */
   .projects-app, .projects-app *, .projects-app *::before, .projects-app *::after { margin: 0; padding: 0; }
   .projects-app {
-    background: #0D0D0D;
+    background: var(--color-black);
     color: var(--color-white);
     font-family: var(--font-body);
   }
 
   /* GRID */
   .projects-app .grid-wrap { max-width: 1200px; margin: 0 auto; padding: 72px 24px 100px; }
-  .projects-app .grid-header { max-width: 620px; margin-bottom: 48px; }
-  .projects-app .grid-header h1 { font-family: var(--font-heading); font-size: clamp(36px,6vw,72px); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; line-height: 1; color: var(--color-white); margin-bottom: 20px; }
-  .projects-app .grid-header p { font-size: clamp(14px,1.5vw,17px); color: var(--color-white); line-height: 1.8; margin: 0; }
+  .projects-app .grid-header { max-width: none; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+  .projects-app .grid-header h1.legacy-unused { font-family: var(--font-heading); font-size: clamp(36px,6vw,72px); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; line-height: 1; color: var(--color-white); margin-bottom: 20px; }
+  .projects-app .grid-header p.legacy-unused { font-size: clamp(14px,1.5vw,17px); color: var(--color-white); line-height: 1.8; margin: 0; }
 
   /* FILTER BAR */
   .projects-app .filter-bar { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.07); flex-wrap: wrap; }
@@ -76,7 +87,8 @@
   .projects-app .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.5); }
   .projects-app .card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
   .projects-app .card:hover img { transform: scale(1.04); }
-  .projects-app .card-thumb-loading { width: 100%; height: 100%; background: #1f1f1f; display: flex; align-items: center; justify-content: center; }
+  .projects-app .card-thumb-loading .thumb-mark { width: 18%; height: auto; opacity: 0.9; }
+  .projects-app .card-thumb-loading { width: 100%; height: 100%; background: #141414; display: flex; align-items: center; justify-content: center; }
   .projects-app .card-thumb-loading span { color: var(--color-white); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
   /* Flat scrim, not a gradient — brightens slightly on hover with a solid
      brand-color wash that rotates teal / violet / pink across the grid. */
@@ -86,7 +98,7 @@
   .projects-app .card:nth-child(3n):hover .card-overlay { background: rgba(221,14,105,.85); }
   .projects-app .card-hover-label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; opacity: 0; transform: translateY(8px); transition: opacity .3s, transform .3s; }
   .projects-app .card:hover .card-hover-label { opacity: 1; transform: translateY(0); }
-  .projects-app .card-hover-label h3 { font-family: var(--font-heading); font-size: clamp(15px,2vw,22px); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--color-white); line-height: 1.2; margin: 0; }
+  .projects-app .card-hover-label h2, .projects-app .card-hover-label h3 { font-family: var(--font-heading); font-size: clamp(15px,2vw,22px); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--color-white); line-height: 1.2; margin: 0; }
   .projects-app .card-hover-label .card-type-tag { font-family: var(--font-body); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--color-white); margin-top: 8px; }
   .projects-app .card-hover-label .rule { width: 32px; height: 2px; background: var(--color-white); border-radius: 2px; margin-top: 14px; }
 
@@ -175,9 +187,25 @@
     .projects-app .project-nav-label { display: none; }
     .projects-app .project-nav-title { -webkit-line-clamp: 2; }
   }
-  </style>
+    .projects-app .type-chip { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; margin: 0 0 1.5rem; }
+  .projects-app .type-chip strong { color: var(--color-teal); margin: 0 0.6rem 0 0.3rem; }
+  .projects-app .type-chip a { text-decoration: underline; text-underline-offset: 0.3em; }
+</style>
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
+  <!-- Loading screen (Oct 15): Coco rings draw + spin, then the page fades in. Hidden without JS. -->
+  <div class="preloader" aria-hidden="true">
+    <svg class="preloader-mark" viewBox="0 0 220 80">
+      <circle class="pl-ring pl-ring--teal" cx="50" cy="40" r="28"/>
+      <circle class="pl-ring pl-ring--violet" cx="110" cy="40" r="28"/>
+      <circle class="pl-ring pl-ring--pink" cx="170" cy="40" r="28"/>
+      <circle class="pl-dot pl-dot--teal" cx="50" cy="40" r="9"/>
+      <circle class="pl-dot pl-dot--violet" cx="110" cy="40" r="9"/>
+      <circle class="pl-dot pl-dot--pink" cx="170" cy="40" r="9"/>
+    </svg>
+  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
     <div class="container header-inner">
@@ -185,25 +213,27 @@
       <nav class="main-nav" aria-label="Primary">
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
           <li><a href="projects.html" aria-current="page">Projects</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
         </ul>
       </nav>
-      <!-- Social links — placeholder hrefs, swap in real profile URLs when Sofi sends them -->
+      <!-- Social links: LinkedIn + Instagram hidden until real profile URLs exist (Oct 8) -->
       <div class="social-icons">
         <a href="https://vimeo.com/mcpani" aria-label="Coco Media on Vimeo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.396 7.164c-.093 2.026-1.507 4.799-4.245 8.32-2.828 3.672-5.221 5.508-7.181 5.508-1.214 0-2.24-1.12-3.078-3.36-.562-2.055-1.125-4.111-1.687-6.166-.626-2.242-1.298-3.363-2.016-3.363-.156 0-.703.328-1.64.98l-.983-1.266c1.031-.906 2.047-1.812 3.047-2.719C6.023 4.019 7.213 3.394 7.947 3.325c1.749-.169 2.826.937 3.234 3.315.44 2.573.744 4.172.916 4.797.51 2.312 1.07 3.468 1.687 3.468.478 0 1.198-.755 2.159-2.264.96-1.51 1.474-2.658 1.543-3.444.14-1.303-.376-1.955-1.543-1.955-.55 0-1.116.126-1.699.377 1.128-3.696 3.283-5.492 6.465-5.388 2.362.076 3.475 1.6 3.339 4.576z"/></svg></a>
-        <a href="#" aria-label="Coco Media on LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-        <a href="#" aria-label="Coco Media on Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4 2.209 0 4 1.791 4 4 0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <!-- TBD: real LinkedIn URL -->
+        <!-- TBD: real Instagram URL -->
       </div>
-      <a href="mailto:info@cocomedia.tv" class="btn btn-cta">Let's Talk</a>
+      <!-- EN/ES toggle: unhide once /es/ pages exist; href points to this page's Spanish counterpart -->
+      <a class="lang-switch" href="es/" hreflang="es" lang="es" hidden><span class="sr-only">Ver en español: </span>ES</a>
+      <a href="index.html#cta" class="btn btn-cta">Let's Talk</a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <div class="projects-app">
 
 <script>
@@ -827,9 +857,9 @@ const PROJECTS = ORDER.map(id => PROJECTS_SRC.find(p => p.id === id));
 <!-- GRID PAGE -->
 <div id="page-grid">
   <div class="grid-wrap">
-    <div class="grid-header">
-      <h1>Our Work</h1>
-      <p>What happens when you combine cultural fluency, technical excellence, and 25+ years of entertainment marketing experience.</p>
+    <div class="grid-header split-head">
+      <h1 class="display-title">Our<br>Work</h1>
+      <p class="split-intro">Almost two decades of trailers, promos, and behind-the-scenes content for Hispanic and Latin audiences. Pick a title and press play.</p>
     </div>
 
     <div class="filter-bar">
@@ -846,6 +876,7 @@ const PROJECTS = ORDER.map(id => PROJECTS_SRC.find(p => p.id === id));
       <button class="filter-clear" id="filter-clear">× Clear</button>
     </div>
 
+    <p class="type-chip" id="type-chip" hidden></p>
     <div class="project-grid" id="grid"></div>
     <div class="no-results" id="no-results">No projects found for this selection.</div>
   </div>
@@ -944,10 +975,10 @@ function createCard(p) {
   const card = document.createElement('div');
   card.className = 'card';
   card.innerHTML = `
-    <div class="card-thumb-loading"><span>Loading…</span></div>
+    <div class="card-thumb-loading"><svg class="thumb-mark" viewBox="0 0 120 64" aria-hidden="true"><circle cx="34" cy="32" r="22" fill="none" stroke="#fff" stroke-width="6"/><circle cx="86" cy="32" r="22" fill="none" stroke="#fff" stroke-width="6"/><circle cx="34" cy="32" r="7" fill="#fff"/><circle cx="86" cy="32" r="7" fill="#fff"/></svg></div>
     <div class="card-overlay"></div>
     <div class="card-hover-label">
-      <h3>${p.title}</h3>
+      <h2>${p.title}</h2>
       <div class="card-type-tag">${fmtType(p.type)}</div>
       <div class="rule"></div>
     </div>`;
@@ -1154,8 +1185,18 @@ document.getElementById('btn-back').addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
+// ?type=BTS%20Content (linked from Services > What We Deliver) shows only that type
+try {
+  const t = new URLSearchParams(window.location.search).get('type');
+  if (t && PROJECTS.some(p => p.type && p.type.split('|').map(s => s.trim()).includes(t))) {
+    activeFilters.type = t;
+    const chip = document.getElementById('type-chip');
+    chip.innerHTML = `Showing <strong>${t.replace(/[<>&]/g, '')}</strong> <a href="projects.html">Show all projects</a>`;
+    chip.hidden = false;
+  }
+} catch (e) {}
 buildFilters();
-renderAll();
+if (activeFilters.type) applyFilters(); else renderAll();
 
 function checkDeepLink() {
   try {
@@ -1175,31 +1216,52 @@ checkDeepLink();
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <span class="footer-logo"><img src="assets/brand/coco-media-logo-white.png" alt="Coco Media" width="59" height="60"></span>
-        <p class="footer-tagline">Be Seen. <em>Truly Seen.</em></p>
-      </div>
-      <nav class="footer-nav" aria-label="Footer">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="projects.html">Projects</a></li>
-        </ul>
-      </nav>
-      <!-- Legal links hidden for the review preview (Oct 6) until real Privacy/Terms/Accessibility text is in. Remove "hidden" to restore. -->
-      <nav class="footer-legal" aria-label="Legal" hidden>
-        <ul>
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms and Conditions</a></li>
-          <li><a href="accessibility.html">Accessibility Statement</a></li>
-        </ul>
-      </nav>
-    </div>
     <div class="container">
-      <p class="footer-copyright">&copy; <span id="year"></span> Coco Media Producciones &middot; Miami, FL and Chicago, IL &middot; <a href="mailto:info@cocomedia.tv">info@cocomedia.tv</a></p>
-      <p class="footer-credit">Made with love by <a href="https://28cylinders.com" target="_blank" rel="noopener">28 Cylinders</a></p>
+      <div class="footer-top">
+        <p class="footer-tagline">Be Seen.<br><em>Truly Seen.</em></p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col footer-brand-col"><img class="footer-logo-img" src="assets/brand/coco-media-logo-white.png" alt="Coco Media" width="59" height="60"></div>
+        <nav class="footer-col footer-nav" aria-label="Footer">
+          <p class="footer-label">Explore</p>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="careers.html">Careers</a></li>
+          </ul>
+        </nav>
+        <div class="footer-col">
+          <p class="footer-label">Say hola</p>
+          <ul>
+            <li><a class="js-email" data-user="info" data-domain="cocomedia.tv" href="#main">Email us</a></li>
+            <li class="footer-social">
+              <a href="https://vimeo.com/mcpani" aria-label="Coco Media on Vimeo" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22.396 7.164c-.093 2.026-1.507 4.799-4.245 8.32-2.828 3.672-5.221 5.508-7.181 5.508-1.214 0-2.24-1.12-3.078-3.36-.562-2.055-1.125-4.111-1.687-6.166-.626-2.242-1.298-3.363-2.016-3.363-.156 0-.703.328-1.64.98l-.983-1.266c1.031-.906 2.047-1.812 3.047-2.719C6.023 4.019 7.213 3.394 7.947 3.325c1.749-.169 2.826.937 3.234 3.315.44 2.573.744 4.172.916 4.797.51 2.312 1.07 3.468 1.687 3.468.478 0 1.198-.755 2.159-2.264.96-1.51 1.474-2.658 1.543-3.444.14-1.303-.376-1.955-1.543-1.955-.55 0-1.116.126-1.699.377 1.128-3.696 3.283-5.492 6.465-5.388 2.362.076 3.475 1.6 3.339 4.576z"/></svg></a>
+              <!-- LinkedIn + Instagram: add here once URLs exist (same markup, aria-label "Coco Media on LinkedIn/Instagram") -->
+            </li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <p class="footer-label">Find us</p>
+          <ul>
+            <li>Miami, FL</li>
+            <li>Chicago, IL</li>
+          </ul>
+        </div>
+        <nav class="footer-col footer-legal" aria-label="Legal">
+          <p class="footer-label">The fine print</p>
+          <ul>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms and Conditions</a></li>
+            <li><a href="accessibility.html">Accessibility</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; <span id="year"></span> Coco Media Producciones. All rights reserved.</p>
+        <p class="footer-credit">Made with love by <a href="https://28cylinders.com" target="_blank" rel="noopener">28 Cylinders</a></p>
+      </div>
     </div>
   </footer>
 
