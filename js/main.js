@@ -422,3 +422,26 @@ document.querySelectorAll('[data-careers-mail]').forEach((a) => {
   const row = fig.closest('.svc');
   if (row && window.matchMedia('(hover: hover)').matches) row.addEventListener('mouseenter', play);
 })();
+
+// Oct 28: hero video on phones. iOS only autoplays when muted is set as a property, and can refuse the first
+// autoplay (Low Power Mode, slow network); retry on load and on the first touch/scroll.
+(() => {
+  const v = document.querySelector('.hero-video');
+  if (!v || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  v.muted = true; v.defaultMuted = true; v.playsInline = true; v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+  const tryPlay = () => { if (v.paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } };
+  tryPlay();
+  window.addEventListener('load', tryPlay, { once: true });
+  ['touchstart', 'scroll'].forEach((ev) => window.addEventListener(ev, tryPlay, { once: true, passive: true }));
+})();
+
+// Oct 28: back-to-top button (phones/tablets), a brand circle with an arrow
+(() => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'to-top'; b.setAttribute('aria-label', 'Back to top');
+  b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  b.addEventListener('click', () => window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
+  document.body.appendChild(b);
+  const onScroll = () => b.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.9);
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+})();
