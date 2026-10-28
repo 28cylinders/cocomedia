@@ -396,6 +396,8 @@ document.querySelectorAll('[data-careers-mail]').forEach((a) => {
   const btn = wrap.querySelector('.define-trigger');
   const set = (open) => { wrap.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', String(open)); };
   btn.addEventListener('click', (e) => { e.stopPropagation(); set(!wrap.classList.contains('is-open')); });
+  // Oct 28: trigger is an inline span (a <button> forced a line break before the comma); keep it keyboard-operable
+  btn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); set(!wrap.classList.contains('is-open')); } });
   document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) set(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
 })();
