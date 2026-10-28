@@ -1,0 +1,65 @@
+/* ==========================================================================
+   Case study pages (Tier 2). v4 Oct 27, 2026. Loaded only on case-study-*.html,
+   after style.css. Built from the site's own parts so it reads as cocomedia.tv:
+   display titles + split heads, rounded media with the Services color-circle
+   accent, pill buttons, color-dot labels (as on project detail), service tags,
+   the Home awards list, and the standard CTA.
+   Brand rules hold: no gray text, no em dashes, no &, no gradients.
+   ========================================================================== */
+
+/* Review flags: invisible by default; visible with ?review in the URL (case-study.js) */
+.cs-review .cs-tbd { outline: 2px dashed var(--color-violet); outline-offset: 3px; border-radius: 3px; }
+
+/* Intro */
+.cs-back { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.9rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+@media (hover: hover) { .cs-back { transition: color 0.2s ease; } .cs-back:hover { color: var(--color-violet); } }
+.cs-client { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.85rem; margin: 0 0 1.25rem; }
+.cs-client::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--color-teal); flex: none; }
+.cs-year { padding-left: 0.6rem; border-left: 1px solid rgba(0,0,0,0.3); }
+.cs-intro .split-head { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.cs-intro .split-intro p:first-child { font-size: clamp(1.05rem, 1.5vw, 1.25rem); }
+
+/* Media: rounded frame + the brand circle tucked under a corner (same move as .svc-media) */
+.cs-media { margin: 0; position: relative; }
+.cs-frame { position: relative; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; background: var(--color-black); z-index: 1; }
+.cs-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.cs-media::after { content: ""; position: absolute; z-index: 0; width: clamp(80px, 10vw, 140px); aspect-ratio: 1; border-radius: 50%; right: clamp(-28px, -2vw, -14px); bottom: clamp(-28px, -2vw, -14px); background: var(--cs-accent, var(--color-pink)); transition: transform 0.5s cubic-bezier(.3,1.5,.5,1); }
+.cs-media--left::after { right: auto; left: clamp(-28px, -2vw, -14px); }
+.cs-media--pink { --cs-accent: var(--color-pink); }
+.cs-media--teal { --cs-accent: var(--color-teal); }
+.cs-media--violet { --cs-accent: var(--color-violet); }
+.cs-media figcaption { font-family: var(--font-heading); text-transform: uppercase; font-size: 1.2rem; margin-top: 1.25rem; }
+.cs-media.is-swapping::after { transform: scale(1.3); }
+@media (max-width: 760px) { .cs-media::after { right: -8px; bottom: -16px; } .cs-media--left::after { left: -8px; } }
+
+/* Chapters */
+.cs-chapter .section-head--display { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: 1.5rem 2rem; text-align: left; }
+.cs-chapter .section-head--display .display-title { text-align: left; }
+@media (max-width: 760px) { .cs-chapter .section-head--display { grid-template-columns: 1fr; justify-items: start; } }
+.cs-chapter--next { padding-top: 0; }
+.cs-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: flex-end; }
+.cs-pill { font: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: 0.55rem; font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.95rem; color: var(--color-white); background: transparent; border: 2px solid var(--color-white); border-radius: 999px; padding: 0.65rem 1.3rem; transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.25s ease; }
+.cs-pill::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--pill); flex: none; transition: background-color 0.25s ease; }
+.cs-pill--teal { --pill: var(--color-teal); }
+.cs-pill--violet { --pill: var(--color-violet); }
+.cs-pill--pink { --pill: var(--color-pink); }
+.cs-pill[aria-pressed="true"] { background: var(--pill); border-color: var(--pill); }
+.cs-pill[aria-pressed="true"]::before { background: var(--color-white); }
+.cs-pill:focus-visible { outline: 2px solid var(--color-white); outline-offset: 3px; }
+@media (hover: hover) { .cs-pill:hover { transform: translateY(-2px); border-color: var(--pill); } }
+@media (max-width: 760px) { .cs-pills { justify-content: flex-start; } }
+
+/* Facts */
+.cs-facts-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 3rem); }
+.cs-fact p { margin: 0; line-height: 1.6; }
+.cs-fact-label { display: inline-flex; align-items: center; gap: 0.55rem; font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.8rem; margin-bottom: 0.6rem !important; }
+.cs-fact-label::before { content: ""; width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.cs-fact-label--teal::before { background: var(--color-teal); }
+.cs-fact-label--violet::before { background: var(--color-violet); }
+.cs-fact-label--pink::before { background: var(--color-pink); }
+.cs-awards { margin-top: clamp(2.5rem, 5vw, 3.5rem); padding-top: clamp(1.5rem, 3vw, 2rem); border-top: 1px solid rgba(0,0,0,0.2); }
+.cs-more { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.cs-cta { padding-top: 0; }
+.cs-cta .container { border-top: 1px solid rgba(0,0,0,0.2); padding-top: var(--section-padding-y); }
+@media (max-width: 760px) { .cs-facts-grid { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .cs-pill { font-size: 0.82rem; padding: 0.55rem 1rem; } }

@@ -1325,6 +1325,14 @@ body.page-home .site-header:not(.is-scrolled) :focus-visible { outline-color: va
 /* Services photos: all B&W, a little rounder */
 .svc-media img { border-radius: 14px; }
 
+/* Services Post-Production: timeline sweep plays over the still (Oct 27) */
+.svc-motion { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 14px; opacity: 0; pointer-events: none; transition: opacity 0.6s ease, transform 0.5s ease; }
+.svc-media--motion.is-playing .svc-motion { opacity: 1; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .svc:hover .svc-motion { transform: scale(1.02) rotate(-0.6deg); }
+}
+@media (prefers-reduced-motion: reduce) { .svc-motion { display: none; } }
+
 /* Legal pages */
 .legal-body { max-width: 760px; position: relative; z-index: 1; }
 .legal-body .display-title { margin-bottom: 1.5rem; }
@@ -1479,3 +1487,23 @@ body.page-home .site-header:not(.is-scrolled) :focus-visible { outline-color: va
 .site-footer--home { padding-top: 0; } .site-footer--home .footer-cols { border-top: 1px solid rgba(255,255,255,0.3); }
 /* Bigger footer logo */
 .footer-brand-col .footer-logo-img { height: clamp(80px, 8vw, 110px); }
+
+/* "Nosotros le ponemos coco" dictionary card (Oct 16) */
+.define-wrap { position: relative; }
+.define-trigger { all: unset; cursor: help; text-decoration: underline dotted rgba(255,255,255,0.6); text-decoration-thickness: 2px; text-underline-offset: 0.18em; }
+.define-trigger:focus-visible { outline: 2px solid var(--color-teal); outline-offset: 4px; }
+.define-card { position: absolute; left: 50%; top: calc(100% + 1.25rem); z-index: 5; width: min(420px, 92vw); transform: translate(-50%, 8px); opacity: 0; visibility: hidden; pointer-events: none;
+  background: var(--color-white); color: var(--color-black); border-radius: 14px; padding: 1.5rem 1.75rem; text-align: left; box-shadow: 6px 8px 0 var(--color-teal);
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(.2,.8,.2,1), visibility 0.25s; }
+.define-card::before { content: ""; position: absolute; top: -8px; left: 50%; width: 16px; height: 16px; background: var(--color-white); transform: translateX(-50%) rotate(45deg); border-radius: 3px; }
+.define-wrap.is-open .define-card { opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%, 0); }
+@media (hover: hover) { .define-trigger:hover ~ .define-card, .define-wrap h2:has(.define-trigger:hover) + .define-card, .define-card:hover { opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%, 0); } }
+.define-wrap:has(.define-trigger:focus-visible) .define-card { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.define-word { font-family: var(--font-heading); text-transform: uppercase; font-size: 1.6rem; line-height: 1; margin: 0 0 0.35rem; }
+.define-meta { font-size: 0.85rem; margin: 0 0 0.9rem; }
+.define-meta em { font-family: var(--font-heading); font-style: italic; text-transform: uppercase; color: var(--color-pink); }
+.define-list { margin: 0; padding-left: 1.2rem; list-style: decimal; font-size: 0.95rem; line-height: 1.5; }
+.define-list li + li { margin-top: 0.5rem; }
+.define-note { font-style: italic; }
+#tagline-2 { overflow: visible; position: relative; z-index: 3; }
+@media (prefers-reduced-motion: reduce) { .define-card { transition: none; } }

@@ -388,3 +388,35 @@ document.querySelectorAll('[data-careers-mail]').forEach((a) => {
   window.addEventListener('resize', fit);
   if (document.fonts) document.fonts.ready.then(fit);
 })();
+
+// Tap/click toggles the dictionary card (touch screens + keyboard); Escape or tapping elsewhere closes it
+(() => {
+  const wrap = document.querySelector('.define-wrap');
+  if (!wrap) return;
+  const btn = wrap.querySelector('.define-trigger');
+  const set = (open) => { wrap.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', String(open)); };
+  btn.addEventListener('click', (e) => { e.stopPropagation(); set(!wrap.classList.contains('is-open')); });
+  document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) set(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+})();
+
+// Services Post-Production (Oct 27): play the 5s timeline sweep over the still when the row comes into view,
+// fade back to the still when it ends, replay on hover. Under 5s, so no pause control needed (WCAG 2.2.2).
+(() => {
+  const fig = document.querySelector('.svc-media--motion');
+  if (!fig || window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const video = fig.querySelector('video');
+  const play = () => {
+    if (fig.classList.contains('is-playing')) return;
+    video.currentTime = 0;
+    const p = video.play();
+    if (p && p.then) p.then(() => fig.classList.add('is-playing')).catch(() => {});
+    else fig.classList.add('is-playing');
+  };
+  video.addEventListener('ended', () => fig.classList.remove('is-playing'));
+  new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) { video.preload = 'auto'; play(); } });
+  }, { threshold: 0.6 }).observe(fig);
+  const row = fig.closest('.svc');
+  if (row && window.matchMedia('(hover: hover)').matches) row.addEventListener('mouseenter', play);
+})();
