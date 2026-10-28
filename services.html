@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="robots" content="noindex, nofollow"><!-- preview copy only -->
+  <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Services | Trailers, Promos + Post-Production | Coco Media</title>
   <meta name="description" content="Creative strategy, campaign management, executive producer services, and post-production for entertainment brands reaching Hispanic and Latin American audiences.">
@@ -24,7 +24,7 @@
   <meta property="og:image:alt" content="Coco Media logo">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#000000">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=1016">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -95,7 +95,9 @@
           </div>
         </article>
         <article class="svc svc--pink">
-          <figure class="svc-media"><img src="assets/about/svc-post-bw.webp" width="1000" height="750" alt="An edit timeline and program monitor during a post-production session" loading="lazy"></figure>
+          <!-- Oct 28: still swapped to the full-res timeline screenshot (Sofi). Oct 27: Mujeres Asesinas S4 BTS edit (from Mary Cruz). Still = resting state; the timeline sweep (5s, silent, B&W)
+               fades in once when the row scrolls into view and again on hover. Skipped for reduced motion. -->
+          <figure class="svc-media svc-media--motion"><img src="assets/about/svc-post-timeline-hq-1000.webp" srcset="assets/about/svc-post-timeline-hq-1000.webp 1000w, assets/about/svc-post-timeline-hq.webp 1500w" sizes="(max-width: 860px) 100vw, 600px" width="1000" height="750" alt="A multi-track Premiere Pro timeline from a Mujeres Asesinas behind-the-scenes edit" loading="lazy"><video class="svc-motion" muted playsinline preload="none" aria-hidden="true" tabindex="-1"><source src="assets/about/svc-post-timeline.mp4" type="video/mp4"></video></figure>
           <div class="svc-copy">
             <p class="svc-num">03</p>
             <h2>Post-Production</h2>
@@ -214,6 +216,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=1027"></script>
 </body>
 </html>

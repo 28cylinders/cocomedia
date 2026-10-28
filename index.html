@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="robots" content="noindex, nofollow"><!-- preview copy only -->
+  <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coco Media | Entertainment Marketing for Hispanic Audiences</title>
   <meta name="description" content="Coco Media is an entertainment marketing, creative strategy, and post-production studio built for U.S. Hispanic and Latin American audiences. Based in Miami and Chicago.">
@@ -46,7 +46,7 @@
     "sameAs": ["https://vimeo.com/mcpani"]
   }
   </script>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=1016">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="page-home">
@@ -225,7 +225,18 @@
     <!-- 6. TAGLINE 2 — LOCKED, design confirmed unchanged -->
     <section class="section section--dark" id="tagline-2">
       <div class="container">
-        <h2><span lang="es">Nosotros le ponemos <span class="accent-teal">coco</span></span>, so you don't have to.</h2>
+        <div class="define-wrap">
+          <h2><button type="button" class="define-trigger" aria-expanded="false" aria-controls="coco-def"><span lang="es">Nosotros le ponemos <span class="accent-teal">coco</span></span></button>, so you don't have to.</h2>
+          <!-- Dictionary card (Oct 16): shows on hover/focus on desktop, tap on touch -->
+          <div class="define-card" id="coco-def" role="note">
+            <p class="define-word" lang="es">po·ner·le co·co</p>
+            <p class="define-meta"><em>phrase</em> · Latin American slang</p>
+            <ol class="define-list">
+              <li>To think really hard about something; to put your head into it. <span class="define-note">(<span lang="es">coco</span>, n.: your head)</span></li>
+              <li>What we do for every story, so you don’t have to.</li>
+            </ol>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -341,6 +352,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=1016"></script>
 </body>
 </html>
