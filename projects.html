@@ -24,7 +24,7 @@
   <meta property="og:image:alt" content="Coco Media logo">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#000000">
-  <link rel="stylesheet" href="css/style.css?v=11052238">
+  <link rel="stylesheet" href="css/style.css?v=11052241">
   <style>
   /* ==========================================================================
      Projects app — scoped under .projects-app so it can't leak into or
@@ -190,6 +190,11 @@
     .projects-app .type-chip { font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem; margin: 0 0 1.5rem; }
   .projects-app .type-chip strong { color: var(--color-teal); margin: 0 0.6rem 0 0.3rem; }
   .projects-app .type-chip a { text-decoration: underline; text-underline-offset: 0.3em; }
+
+  /* Nov 5: "What We Delivered" + "Recognition" labels much larger (were 10px), body text bigger, all in rem so they scale on TVs */
+  .projects-app .credits, .projects-app .awards { max-width: 760px; padding-top: 1.5rem; margin-top: 1.5rem; }
+  .projects-app .credits-label, .projects-app .awards-label { font-family: var(--font-heading); font-size: clamp(1.5rem, 2.6vw, 2.25rem); font-weight: 500; letter-spacing: 0.02em; line-height: 1.05; margin-bottom: 0.6rem; }
+  .projects-app .credits-text, .projects-app .awards-text { font-size: clamp(1rem, 1.2vw, 1.15rem); line-height: 1.6; }
 </style>
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -1267,6 +1272,6 @@ checkDeepLink();
     </div>
   </footer>
 
-  <script src="js/main.js?v=11052238"></script>
+  <script src="js/main.js?v=11052241"></script>
 </body>
 </html>
