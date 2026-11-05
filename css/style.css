@@ -1641,3 +1641,39 @@ body.page-home .site-header:not(.is-scrolled) :focus-visible { outline-color: va
   .dl-left .display-title { text-align: left; }
   .dl-left .dl-wheel { margin: 0 auto; width: min(100%, 340px); }
 }
+
+/* ===== Nov 5: night mode. The site has its own black + white sections, so phones/browsers must not
+   auto-darken it (Chrome's auto dark mode, some Android browsers). Keeps colors exactly as designed. ===== */
+:root { color-scheme: light only; }
+
+/* ===== Nov 5: type pass. Bigger titles and body text everywhere, still editorial ===== */
+:root { --size-body: 1.0625rem; }
+h2 { font-size: clamp(2rem, 4vw, 3.25rem); }
+.display-title { font-size: clamp(3rem, 9vw, 6.75rem); }
+.split-intro { font-size: clamp(1.1rem, 1.55vw, 1.35rem); }
+.service-name h3 { font-size: clamp(1.75rem, 3.4vw, 3rem); }
+.service-body p { font-size: clamp(1.05rem, 1.45vw, 1.25rem); }
+.service-tags, .service-body .service-tags { font-size: clamp(0.9rem, 1vw, 1rem); }
+.svc-copy h2, .svc-copy h3 { font-size: clamp(1.9rem, 3.3vw, 3.1rem); }
+.svc-copy p { font-size: clamp(1.05rem, 1.4vw, 1.25rem); max-width: 48ch; }
+.feature-title { font-size: clamp(1.5rem, 2.4vw, 2.3rem); }
+.feature-type { font-size: clamp(1rem, 1.2vw, 1.2rem); }
+.awards-strip-list li { font-size: clamp(1.05rem, 1.3vw, 1.2rem); }
+.awards-strip-label { font-size: 1rem; }
+.awards-strip-num { font-size: clamp(4.5rem, 10vw, 7.5rem); }
+.cta-ed .cta-ed-big { font-size: clamp(3.4rem, 9.5vw, 8.5rem); }
+.cta-ed .cta-ed-lead { font-size: clamp(1.6rem, 3vw, 2.5rem); }
+.cta-ed .cta-ed-body { font-size: clamp(1.15rem, 1.7vw, 1.45rem); }
+.founder-name { font-size: clamp(3rem, 6.5vw, 5.75rem); }
+.founder-copy p { font-size: clamp(1.05rem, 1.4vw, 1.25rem); }
+.founder-role { font-size: 1rem; }
+.diff-item p, .quote-pair p { font-size: clamp(1.1rem, 1.5vw, 1.35rem); }
+.dl-list .dl-desc, .dl-layout .dl-list .dl-desc { font-size: clamp(1.05rem, 1.25vw, 1.2rem); }
+.dl-link { font-size: 0.95rem; }
+.footer-label { font-size: 0.85rem; }
+.footer-tagline { font-size: clamp(1.4rem, 2vw, 1.8rem); }
+@media (min-width: 900px) { .main-nav a { font-size: clamp(0.95rem, 1vw, 1.1rem); } }
+@media (max-width: 600px) {
+  .display-title { font-size: clamp(2.6rem, 12.5vw, 3.6rem); }
+  .service-name h3 { font-size: 1.6rem; }
+}
