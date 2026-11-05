@@ -447,3 +447,38 @@ document.querySelectorAll('[data-careers-mail]').forEach((a) => {
   const onScroll = () => b.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.9);
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 })();
+
+// Nov 5: "Be Seen" must match the width of the hero paragraph exactly (core of the hero design).
+// On laptops/desktops/TVs (900px+), measure the paragraph's widest rendered line and scale the title so its
+// widest line ("Seen") is the same width. Re-runs when fonts load and on resize, so it stays exact with the
+// real fonts at any screen size and after any text-size change.
+(() => {
+  const title = document.querySelector('.hero-title-main');
+  const para = document.querySelector('.hero-content p');
+  if (!title || !para) return;
+  const widest = (el) => {
+    const r = document.createRange(); r.selectNodeContents(el);
+    const rects = [...r.getClientRects()].filter((x) => x.width > 1);
+    if (!rects.length) return 0;
+    // group rects by line (same top), sum each line's extent
+    const lines = {};
+    rects.forEach((x) => { const k = Math.round(x.top); const l = lines[k] || (lines[k] = { a: x.left, b: x.right }); l.a = Math.min(l.a, x.left); l.b = Math.max(l.b, x.right); });
+    return Math.max(...Object.values(lines).map((l) => l.b - l.a));
+  };
+  const fitHero = () => {
+    if (window.innerWidth < 900) return; // phones/tablets use the width-fit in the block above
+    const target = widest(para);
+    if (!target) return;
+    for (let i = 0; i < 3; i++) {
+      const cur = parseFloat(getComputedStyle(title).fontSize);
+      const w = widest(title);
+      if (!w) return;
+      title.style.fontSize = `${(cur * target / w).toFixed(2)}px`;
+    }
+  };
+  const run = () => requestAnimationFrame(fitHero);
+  run();
+  window.addEventListener('resize', run);
+  window.addEventListener('load', run);
+  if (document.fonts) document.fonts.ready.then(run);
+})();
