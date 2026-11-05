@@ -25,7 +25,7 @@
   <meta property="og:image:alt" content="Coco Media logo">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#000000">
-  <link rel="stylesheet" href="css/style.css?v=11052245">
+  <link rel="stylesheet" href="css/style.css?v=11052306">
   <style>
   /* ==========================================================================
      Projects app — scoped under .projects-app so it can't leak into or
@@ -205,6 +205,26 @@
   .projects-app .video-desc { font-size: clamp(1.05rem, 1.35vw, 1.2rem); max-width: 760px; }
   .projects-app .related-title { font-size: clamp(1.1rem, 1.8vw, 1.5rem); }
   .projects-app .btn-back { font-size: 1rem; }
+
+  /* Nov 5: phone layout toggle: List (one big card per row) or Grid (two per row) */
+  .projects-app .view-toggle { display: none; }
+  @media (max-width: 767px) {
+    .projects-app .view-toggle { display: inline-flex; gap: 0.4rem; margin: 0 0 1.25rem; padding: 0.3rem; border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; }
+    .projects-app .view-toggle button { display: inline-flex; align-items: center; gap: 0.45rem; font-family: var(--font-heading); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.9rem; color: var(--color-white); background: transparent; border: 0; border-radius: 999px; padding: 0.55rem 1rem; cursor: pointer; }
+    .projects-app .view-toggle svg { width: 18px; height: 18px; fill: currentColor; }
+    .projects-app .view-toggle button[aria-pressed="true"] { background: var(--color-white); color: var(--color-black); }
+    .projects-app .project-grid.is-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .projects-app .project-grid.is-grid .card { aspect-ratio: 1 / 1; border-radius: 10px; }
+    .projects-app .project-grid.is-grid .card-hover-label { padding: 10px; }
+    .projects-app .project-grid.is-grid .card-hover-label h2 { font-size: 0.85rem; }
+    .projects-app .project-grid.is-grid .card-type-tag, .projects-app .project-grid.is-grid .rule { display: none; }
+  }
+  /* Touch screens have no hover: always show the title on the card */
+  @media (hover: none) {
+    .projects-app .card-hover-label { opacity: 1; transform: none; }
+    .projects-app .card-overlay { background: rgba(0,0,0,0.5); }
+    .projects-app .card-hover-label h2 { font-size: 1.15rem; }
+  }
 </style>
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -894,6 +914,11 @@ const PROJECTS = ORDER.map(id => PROJECTS_SRC.find(p => p.id === id));
     </div>
 
     <p class="type-chip" id="type-chip" hidden></p>
+    <!-- Nov 5: phone layout toggle (list / grid) -->
+    <div class="view-toggle" role="group" aria-label="Project layout">
+      <button type="button" data-view="list" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/></svg>List</button>
+      <button type="button" data-view="grid" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="4" width="8" height="7" rx="1.5"/><rect x="3" y="13" width="8" height="7" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5"/></svg>Grid</button>
+    </div>
     <div class="project-grid" id="grid"></div>
     <div class="no-results" id="no-results">No projects found for this selection.</div>
   </div>
@@ -1282,6 +1307,24 @@ checkDeepLink();
     </div>
   </footer>
 
-  <script src="js/main.js?v=11052245"></script>
+  <script src="js/main.js?v=11052306"></script>
+
+<script>
+// Nov 5: phone layout toggle for the projects grid (remembers the choice on this device)
+(() => {
+  const grid = document.getElementById('grid');
+  const btns = document.querySelectorAll('.view-toggle button');
+  if (!grid || !btns.length) return;
+  const set = (v) => {
+    grid.classList.toggle('is-grid', v === 'grid');
+    btns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.view === v)));
+    try { localStorage.setItem('coco-projects-view', v); } catch (e) {}
+  };
+  let saved = 'list';
+  try { saved = localStorage.getItem('coco-projects-view') || 'list'; } catch (e) {}
+  set(saved);
+  btns.forEach((b) => b.addEventListener('click', () => set(b.dataset.view)));
+})();
+</script>
 </body>
 </html>
