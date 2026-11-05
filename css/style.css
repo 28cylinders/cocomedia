@@ -1614,3 +1614,15 @@ body.page-home .site-header:not(.is-scrolled) :focus-visible { outline-color: va
   .svc--pink:hover .svc-icon { background: var(--color-pink); }
   .svc:hover .svc-icon img { filter: invert(1); }
 }
+
+/* Nov 5: motion feels quicker, less "waiting". Shorter reveals, smaller rise, capped stagger. */
+.reveal { transform: translateY(14px); transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out); transition-delay: min(var(--d, 0ms), 160ms); }
+.reveal--fade { transform: none; }
+.line-mask > span { transition: transform 0.65s var(--ease-out); transition-delay: min(var(--d, 0ms), 120ms); }
+.js .preloader { animation: pl-failsafe 0.4s ease 1.8s forwards; }
+.js .preloader.is-done { transition: opacity 0.3s ease, visibility 0.3s ease; }
+.pl-ring { animation-duration: 0.8s, 1.6s; }
+
+/* Nov 5: What We Deliver: no sticky; rings centered in their column and vertically against the list */
+.dl-layout { align-items: center; }
+.dl-layout .dl-wheel { position: static; margin: 0 auto; max-width: 460px; }

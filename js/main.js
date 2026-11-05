@@ -5,7 +5,7 @@
   if (!pl) return;
   let seen = false;
   try { seen = sessionStorage.getItem('coco-loaded') === '1'; sessionStorage.setItem('coco-loaded', '1'); } catch (e) {}
-  const start = performance.now(), minTime = seen ? 250 : 1300;
+  const start = performance.now(), minTime = seen ? 0 : 900; // Nov 5: snappier (was 250 / 1300)
   let done = false;
   const finish = () => {
     if (done) return; done = true;
@@ -14,8 +14,10 @@
       setTimeout(() => pl.remove(), 600);
     }, Math.max(0, minTime - (performance.now() - start)));
   };
-  if (document.readyState === 'complete') finish(); else window.addEventListener('load', finish);
-  setTimeout(finish, 3000);
+  // Nov 5: lift as soon as the page is usable (don't wait for every image/video); hard cap 1.6s
+  if (seen) { pl.remove(); return; }
+  if (document.readyState !== 'loading') finish(); else document.addEventListener('DOMContentLoaded', finish);
+  setTimeout(finish, 1600);
 })();
 
 // Coco Media — shared site behavior
@@ -144,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
       entry.target.classList.add('is-in');
       revealIO.unobserve(entry.target);
     });
-  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+  }, { rootMargin: '0px 0px -4% 0px', threshold: 0.05 });
 
   const reveal = (el, delay = 0, variant = '') => {
     if (!el || el.classList.contains('reveal')) return;
