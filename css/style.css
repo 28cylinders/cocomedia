@@ -1602,3 +1602,15 @@ body.page-home .site-header:not(.is-scrolled) :focus-visible { outline-color: va
 }
 .dl-hint { display: inline; }
 .dl-dot--teal { background: var(--color-teal); } .dl-dot--violet { background: var(--color-violet); } .dl-dot--pink { background: var(--color-pink); }
+
+/* Nov 5: service icons a little bigger + bolder (bold PNGs), and repeated on Services */
+.service-name .ring-frame { width: clamp(64px, 6.5vw, 5.5rem); height: clamp(64px, 6.5vw, 5.5rem); }
+.service-name .ring-frame img { height: 56%; }
+.svc-icon { width: clamp(64px, 6vw, 5.25rem); height: clamp(64px, 6vw, 5.25rem); margin: 0 0 1.25rem; transition: background-color 0.3s ease; }
+.svc-icon img { height: 56%; width: auto; transition: filter 0.3s ease; }
+@media (hover: hover) {
+  .svc--teal:hover .svc-icon { background: var(--color-teal); }
+  .svc--violet:hover .svc-icon { background: var(--color-violet); }
+  .svc--pink:hover .svc-icon { background: var(--color-pink); }
+  .svc:hover .svc-icon img { filter: invert(1); }
+}
