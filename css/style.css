@@ -1629,3 +1629,15 @@ body.page-home .site-header:not(.is-scrolled) :focus-visible { outline-color: va
 
 /* Nov 5: corner circles off on Services photos (the icon circles carry the color now) */
 .svc-media::after { display: none; }
+
+/* Nov 5: What We Deliver: title and rings share one column, both centered on the same axis */
+.dl-layout { align-items: start; }
+.dl-left { display: flex; flex-direction: column; align-items: center; text-align: center; gap: clamp(2rem, 4vw, 3rem); }
+.dl-left .display-title { text-align: center; }
+.dl-left .dl-wheel { margin: 0; width: 100%; }
+.dl-right .split-intro { margin: 0 0 clamp(1.5rem, 3vw, 2.25rem); }
+@media (max-width: 860px) {
+  .dl-left { align-items: stretch; text-align: left; }
+  .dl-left .display-title { text-align: left; }
+  .dl-left .dl-wheel { margin: 0 auto; width: min(100%, 340px); }
+}
