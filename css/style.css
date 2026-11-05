@@ -1579,3 +1579,26 @@ body.page-home .site-header:not(.is-scrolled) :focus-visible { outline-color: va
 .to-top.is-visible { opacity: 1; transform: none; }
 .to-top:focus-visible { outline: 2px solid var(--color-teal); outline-offset: 4px; }
 @media (max-width: 1024px) { .to-top { display: grid; } }
+
+/* ===== Nov 5: round periods in the footer tagline ("Be Seen. Truly Seen.") ===== */
+.round-dot { display: inline-block; width: 0.17em; height: 0.17em; border-radius: 50%; background: currentColor; margin-left: 0.05em; vertical-align: baseline; }
+
+/* ===== Nov 5: What We Deliver rebuilt, the mobile design on every screen =====
+   Rings = decorative graphic (no click bubble). The accordion list carries names, descriptions, and links. */
+.dl-layout { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+.dl-layout .dl-wheel { position: sticky; top: calc(var(--nav-height) + 2rem); width: 100%; max-width: 520px; aspect-ratio: 1; margin: 0; }
+.dl-layout .dl-svg { pointer-events: none; }
+.dl-layout .dl-bubble { display: none !important; }
+.dl-layout .dl-list { position: static; width: auto; height: auto; overflow: visible; clip: auto; display: block; border-top: 1px solid rgba(255,255,255,0.25); }
+.dl-layout .dl-list summary { font-size: clamp(1.25rem, 1.9vw, 1.7rem); padding: clamp(1rem, 1.6vw, 1.35rem) 0; }
+.dl-layout .dl-list .dl-desc { font-size: clamp(0.95rem, 1.1vw, 1.1rem); max-width: 52ch; }
+@media (hover: hover) {
+  .dl-list summary { transition: color 0.25s ease; }
+  .dl-list summary:hover .dl-dot { transform: scale(1.5); }
+}
+@media (max-width: 860px) {
+  .dl-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+  .dl-layout .dl-wheel { position: static; width: min(100%, 340px); margin: 0 auto; }
+}
+.dl-hint { display: inline; }
+.dl-dot--teal { background: var(--color-teal); } .dl-dot--violet { background: var(--color-violet); } .dl-dot--pink { background: var(--color-pink); }
