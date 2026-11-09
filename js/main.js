@@ -436,3 +436,16 @@ document.querySelectorAll('[data-careers-mail]').forEach((a) => {
   window.addEventListener('load', run);
   if (document.fonts) document.fonts.ready.then(run);
 })();
+
+// Nov 9: awards list closes from the bottom too, and returns you to where it started
+(() => {
+  const d = document.querySelector('.awards-all');
+  const btn = d && d.querySelector('.aw-collapse');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    d.open = false;
+    const s = d.querySelector('summary');
+    s.scrollIntoView({ block: 'center', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    s.focus({ preventScroll: true });
+  });
+})();
