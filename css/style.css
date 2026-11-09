@@ -1462,3 +1462,5 @@ body.page-home .site-header.is-scrolled, body.page-home .site-header:has(.main-n
 #why-coco .why-copy, #why-coco .why-copy p { max-width: none; }
 #why-coco .why-copy p:not(.why-kicker):not(.why-close):not(.based-in) { font-size: var(--t-lead) !important; line-height: 1.55; }
 #why-coco .why-copy .why-kicker { font-size: var(--t-h3); }
+@media (max-width: 768px) { #why-coco .why-copy p:not(.why-kicker):not(.why-close):not(.based-in) { font-size: 1rem !important; } }
+.aw-legend { font-size: max(var(--t-label), 0.875rem) !important; }
