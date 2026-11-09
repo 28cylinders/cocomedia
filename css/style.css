@@ -1467,8 +1467,6 @@ body.page-home .site-header.is-scrolled, body.page-home .site-header:has(.main-n
 #why-coco .why-chart { margin-top: clamp(2.5rem, 5vw, 4rem); }
 #why-coco .why-chart .routes { margin: 0 auto; max-width: 820px; }
 #why-coco .routes-map { overflow: visible; }
-@media (min-width: 900px) {
-#why-coco .why-kicker { font-size: var(--t-h3); }
-#why-coco .why-copy { columns: 2; column-gap: clamp(2rem, 4vw, 3.5rem); }
-}
-@media (min-width: 1200px) { #why-coco .why-copy { columns: 3; } }
+#why-coco .why-copy { max-width: 68ch; }
+#why-coco .why-close { max-width: 44ch; text-wrap: balance; }
+@media (min-width: 900px) { #why-coco .why-kicker { font-size: var(--t-h3); } }
