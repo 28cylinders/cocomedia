@@ -1833,3 +1833,6 @@ p { line-height: 1.65; }
 @media (max-width: 768px) { .why-kicker-wrap .define-card { width: calc(100vw - 48px); } }
 
 .define-def { margin: 0; font-size: 0.95rem; line-height: 1.5; }
+
+/* Nov 9: bio closing line in the editorial voice */
+.founder-copy .founder-close { font-family: var(--font-heading); font-weight: 500; text-transform: uppercase; letter-spacing: 0.02em; font-size: var(--t-h4) !important; line-height: 1.2; margin-top: 1.75rem; }
