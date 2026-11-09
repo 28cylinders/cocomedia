@@ -1831,3 +1831,5 @@ p { line-height: 1.65; }
 @media (hover: hover) { .why-kicker-wrap .define-trigger:hover ~ .define-card, .why-kicker-wrap:has(.define-trigger:hover) .define-card, .why-kicker-wrap .define-card:hover { opacity: 1; visibility: visible; pointer-events: auto; transform: translate(0, 0); } }
 .why-kicker .define-trigger { color: var(--color-teal); }
 @media (max-width: 768px) { .why-kicker-wrap .define-card { width: calc(100vw - 48px); } }
+
+.define-def { margin: 0; font-size: 0.95rem; line-height: 1.5; }
