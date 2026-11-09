@@ -1727,10 +1727,9 @@ p { line-height: 1.65; }
 .awards-strip-strong, .awards-strip-list strong { font-size: inherit; }
 @media (max-width: 899px) { .main-nav ul, .main-nav a { font-size: var(--t-h4) !important; } }
 .split-intro .based-in, .split-intro p.based-in, .split-intro span.based-in { font-size: var(--t-label) !important; }
-/* Nov 5: keep "Be / Seen" on two lines on desktop; JS sizes it to the paragraph's width */
-@media (min-width: 900px) { .hero-title-main { width: min-content; white-space: normal; } }
-/* Nov 5: hero paragraph keeps a comfortable reading measure; "Be Seen" is sized to exactly this width (js) */
-@media (min-width: 900px) { .hero-content p { max-width: 36rem; } }
+/* Nov 9: "Be Seen" back on ONE line (original design), sized by js to the paragraph width */
+@media (min-width: 900px) { .hero-title-main { white-space: nowrap; } }
+
 
 /* ==========================================================================
    Nov 9: MOBILE POLISH PASS (max-width: 768px only). Desktop untouched.
