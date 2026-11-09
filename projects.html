@@ -15,6 +15,9 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/favicon-192.png">
   <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://vimeo.com">
+  <link rel="preconnect" href="https://i.vimeocdn.com">
+  <link rel="preconnect" href="https://player.vimeo.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Comfortaa:wght@300;400;500;700&display=swap">
   <link rel="canonical" href="https://cocomedia.tv/projects.html">
@@ -25,7 +28,7 @@
   <meta property="og:image:alt" content="Coco Media logo">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#000000">
-  <link rel="stylesheet" href="css/style.css?v=11091457">
+  <link rel="stylesheet" href="css/style.css?v=11091500">
   <style>
   /* ==========================================================================
      Projects app — scoped under .projects-app so it can't leak into or
@@ -916,7 +919,7 @@ const PROJECTS = ORDER.map(id => PROJECTS_SRC.find(p => p.id === id));
   <div class="grid-wrap">
     <div class="grid-header split-head">
       <h1 class="display-title">Our<br>Work</h1>
-      <p class="split-intro">Almost two decades of trailers, promos, and behind-the-scenes content for Hispanic and Latin audiences. Pick a title and press play.</p>
+      <p class="split-intro">25+ years of trailers, promos, and behind-the-scenes content for Hispanic and Latin audiences. Pick a title and press play.</p>
     </div>
 
     <div class="filter-bar">
@@ -1045,12 +1048,17 @@ function createCard(p) {
       <div class="rule"></div>
     </div>`;
   card.addEventListener('click', () => openProject(p));
-  getVimeoData(p.vimeoId).then(({ thumb }) => {
+  // Nov 9: only ask Vimeo for a thumbnail when the card is about to scroll into view (was: all 36 at page load)
+  const loadThumb = () => getVimeoData(p.vimeoId).then(({ thumb }) => {
     if (!thumb) return;
     const img = document.createElement('img');
-    img.src = thumb; img.alt = p.title; img.loading = 'lazy';
-    card.querySelector('.card-thumb-loading').replaceWith(img);
+    img.src = thumb; img.alt = p.title; img.loading = 'lazy'; img.decoding = 'async';
+    const ph = card.querySelector('.card-thumb-loading'); if (ph) ph.replaceWith(img);
   });
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => { if (entries[0].isIntersecting) { io.disconnect(); loadThumb(); } }, { rootMargin: '400px 0px' });
+    io.observe(card);
+  } else loadThumb();
   return card;
 }
 
@@ -1328,7 +1336,7 @@ checkDeepLink();
     </div>
   </footer>
 
-  <script src="js/main.js?v=11091457"></script>
+  <script src="js/main.js?v=11091500"></script>
 
 <script>
 // Nov 5: phone layout toggle for the projects grid (remembers the choice on this device)

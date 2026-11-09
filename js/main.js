@@ -298,42 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.6 }).observe(frame);
 })();
 
-// Services > What We Deliver: hover or click a deliverable to open its bubble (rings pause)
-(() => {
-  const wheel = document.querySelector('.dl-wheel');
-  if (!wheel) return;
-  const data = [["Trailers", "The first look that decides whether they watch. Built to hook, in any language.", "Trailer"], ["Behind-the-Scenes", "The cast, the set, the story behind the story. Content that builds fans before the premiere.", "BTS Content"], ["Program Generics", "Always-on spots that keep a show top of mind between campaigns.", null], ["Sizzle Reels", "The fast, high-energy cut that sells a show, a slate, or a brand.", "Sizzle Reel"], ["Branded Entertainment", "Brand stories told like entertainment, so audiences watch them on purpose.", "Brand Content"], ["Sales Tapes", "Built for buyers: the pitch and the proof, cut to close the deal.", null], ["On-Air, Social + Digital", "Every cutdown, version, and format, from the linear break to the vertical feed.", null], ["Episodic + Topical Promos", "Week-to-week promos that bring audiences back for the next episode.", "Episodic Promo"], ["Brand Promos", "Network and platform spots that make the brand feel like a place.", null], ["Upfront Videos", "The showstopper for upfront season, made to win the room.", null], ["Sales Presentations", "Videos and decks that turn a slate into a story buyers can’t pass on.", null]];
-  const bubble = wheel.querySelector('.dl-bubble');
-  const cols = ['teal', 'violet', 'pink'];
-  let locked = null;
-  const show = (el) => {
-    const [name, text, type] = data[+el.dataset.i];
-    const col = [...el.classList].find((c) => c.startsWith('dl-item--')).replace('dl-item--', '');
-    wheel.querySelectorAll('.dl-item.is-active').forEach((x) => x.classList.remove('is-active'));
-    el.classList.add('is-active');
-    bubble.className = `dl-bubble dl-bubble--${col}`;
-    bubble.style.setProperty('--dl-bg', `var(--color-${col})`);
-    bubble.querySelector('.dl-bubble-name').textContent = name;
-    bubble.querySelector('.dl-bubble-text').textContent = text;
-    bubble.querySelector('.dl-bubble-cta').innerHTML = type ? `<a class="dl-link" href="projects.html?type=${encodeURIComponent(type)}">See examples <span aria-hidden="true">→</span></a>` : '';
-    bubble.hidden = false;
-    wheel.classList.add('is-open');
-  };
-  const hide = () => {
-    if (locked) return;
-    wheel.classList.remove('is-open');
-    wheel.querySelectorAll('.dl-item.is-active').forEach((x) => x.classList.remove('is-active'));
-  };
-  wheel.querySelectorAll('.dl-item').forEach((el) => {
-    el.addEventListener('mouseenter', () => { if (!locked) show(el); });
-    el.addEventListener('focus', () => show(el));
-    el.addEventListener('click', (e) => { e.stopPropagation(); locked = locked === el ? null : el; show(el); if (!locked) hide(); });
-    el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.dispatchEvent(new MouseEvent('click')); } });
-  });
-  wheel.addEventListener('mouseleave', hide);
-  document.addEventListener('click', (e) => { if (!wheel.contains(e.target) || (!e.target.closest('.dl-item') && !e.target.closest('.dl-bubble'))) { locked = null; hide(); } });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { locked = null; hide(); } });
-})();
+// (Nov 9: What We Deliver bubble removed; the rings are decorative and the list does the work)
 
 // About: Ferrari drives in from the right as the lead quote scrolls up, then drives off left
 (() => {
@@ -404,26 +369,7 @@ document.querySelectorAll('[data-careers-mail]').forEach((a) => {
   });
 })();
 
-// Services Post-Production (Oct 27): play the 5s timeline sweep over the still when the row comes into view,
-// fade back to the still when it ends, replay on hover. Under 5s, so no pause control needed (WCAG 2.2.2).
-(() => {
-  const fig = document.querySelector('.svc-media--motion');
-  if (!fig || window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
-  const video = fig.querySelector('video');
-  const play = () => {
-    if (fig.classList.contains('is-playing')) return;
-    video.currentTime = 0;
-    const p = video.play();
-    if (p && p.then) p.then(() => fig.classList.add('is-playing')).catch(() => {});
-    else fig.classList.add('is-playing');
-  };
-  video.addEventListener('ended', () => fig.classList.remove('is-playing'));
-  new IntersectionObserver((entries) => {
-    entries.forEach((e) => { if (e.isIntersecting) { video.preload = 'auto'; play(); } });
-  }, { threshold: 0.6 }).observe(fig);
-  const row = fig.closest('.svc');
-  if (row && window.matchMedia('(hover: hover)').matches) row.addEventListener('mouseenter', play);
-})();
+// (Nov 9: Services timeline-video overlay removed; Post-Production uses a still)
 
 // Oct 28: hero video on phones. iOS only autoplays when muted is set as a property, and can refuse the first
 // autoplay (Low Power Mode, slow network); retry on load and on the first touch/scroll.
