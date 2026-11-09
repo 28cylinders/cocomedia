@@ -1,3 +1,6 @@
+// Nov 9: Spanish pages (/es/) reuse this file; t(en, es) picks the page's language for JS-made labels
+const t = (en, es) => (document.documentElement.lang === 'es' ? es : en);
+
 // Loading screen: hold for the full ring animation on the first page of a visit,
 // only briefly on later pages, and never longer than 3s even if a video is slow.
 (() => {
@@ -70,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sync = () => {
       const paused = video.paused;
       pauseBtn.setAttribute('aria-pressed', String(paused));
-      pauseBtn.setAttribute('aria-label', paused ? 'Play background video' : 'Pause background video');
+      pauseBtn.setAttribute('aria-label', paused ? t('Play background video', 'Reproducir el video de fondo') : t('Pause background video', 'Pausar el video de fondo'));
     };
     pauseBtn.addEventListener('click', () => { video.paused ? video.play() : video.pause(); });
     video.addEventListener('play', sync);
@@ -110,9 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(email);
-        btn.textContent = 'Copied';
-        if (status) status.textContent = 'Email address copied';
-        setTimeout(() => { btn.textContent = 'Copy email'; if (status) status.textContent = ''; }, 2000);
+        btn.textContent = t('Copied', 'Copiado');
+        if (status) status.textContent = t('Email address copied', 'Correo copiado');
+        setTimeout(() => { btn.textContent = t('Copy email', 'Copiar correo'); if (status) status.textContent = ''; }, 2000);
       } catch (e) { /* clipboard blocked: the mailto link still works */ }
     });
   });
@@ -123,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       const paused = strip.classList.toggle('is-paused');
       btn.setAttribute('aria-pressed', String(paused));
-      btn.setAttribute('aria-label', paused ? 'Play logo carousel' : 'Pause logo carousel');
+      btn.setAttribute('aria-label', paused ? t('Play logo carousel', 'Reproducir el carrusel de logos') : t('Pause logo carousel', 'Pausar el carrusel de logos'));
     });
   });
 
@@ -323,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Reduced-motion: the logo strip becomes a scrollable row, so make it keyboard-reachable
 if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  document.querySelectorAll('.logo-marquee').forEach((m) => { m.tabIndex = 0; m.setAttribute('role', 'region'); m.setAttribute('aria-label', 'Client logos, scrollable'); });
+  document.querySelectorAll('.logo-marquee').forEach((m) => { m.tabIndex = 0; m.setAttribute('role', 'region'); m.setAttribute('aria-label', t('Client logos, scrollable', 'Logos de clientes, desplazable')); });
 }
 
 // Careers: "Get notified" opens an email with the subject filled in (address assembled here, never in the HTML)
@@ -386,7 +389,7 @@ document.querySelectorAll('[data-careers-mail]').forEach((a) => {
 // Oct 28: back-to-top button (phones/tablets), a brand circle with an arrow
 (() => {
   const b = document.createElement('button');
-  b.type = 'button'; b.className = 'to-top'; b.setAttribute('aria-label', 'Back to top');
+  b.type = 'button'; b.className = 'to-top'; b.setAttribute('aria-label', t('Back to top', 'Volver arriba'));
   b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   b.addEventListener('click', () => window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
   document.body.appendChild(b);
