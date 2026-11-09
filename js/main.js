@@ -393,8 +393,7 @@ document.querySelectorAll('[data-careers-mail]').forEach((a) => {
 
 // Tap/click toggles the dictionary card (touch screens + keyboard); Escape or tapping elsewhere closes it
 (() => {
-  const wrap = document.querySelector('.define-wrap');
-  if (!wrap) return;
+  document.querySelectorAll('.define-wrap').forEach((wrap) => { // Nov 9: Home "coco" + About "cuchi"
   const btn = wrap.querySelector('.define-trigger');
   const set = (open) => { wrap.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', String(open)); };
   btn.addEventListener('click', (e) => { e.stopPropagation(); set(!wrap.classList.contains('is-open')); });
@@ -402,6 +401,7 @@ document.querySelectorAll('[data-careers-mail]').forEach((a) => {
   btn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); set(!wrap.classList.contains('is-open')); } });
   document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) set(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+  });
 })();
 
 // Services Post-Production (Oct 27): play the 5s timeline sweep over the still when the row comes into view,

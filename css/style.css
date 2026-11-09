@@ -1820,3 +1820,14 @@ p { line-height: 1.65; }
   .to-top svg { width: 18px; height: 18px; }
 }
 @media (min-width: 769px) and (max-width: 1024px) { .to-top { display: none; } }
+
+/* Nov 9: Why Coco, her original copy. Opening + closing lines are the editorial voice (Oswald), body stays Comfortaa */
+.why-copy .why-kicker { font-family: var(--font-heading); font-weight: 500; text-transform: uppercase; font-size: var(--t-h4); line-height: 1.15; letter-spacing: 0.02em; margin: 0 0 1.25rem; }
+.why-copy .why-close { font-family: var(--font-heading); font-weight: 500; text-transform: uppercase; font-size: var(--t-h4) !important; line-height: 1.2; letter-spacing: 0.02em; margin-top: 1.5rem; }
+.why-copy .why-close span { color: var(--color-teal); }
+.why-kicker-wrap .define-card { left: 0; transform: translate(0, 8px); }
+.why-kicker-wrap .define-card::before { left: 2.5rem; }
+.why-kicker-wrap.is-open .define-card, .why-kicker-wrap:has(.define-trigger:focus-visible) .define-card { transform: translate(0, 0); }
+@media (hover: hover) { .why-kicker-wrap .define-trigger:hover ~ .define-card, .why-kicker-wrap:has(.define-trigger:hover) .define-card, .why-kicker-wrap .define-card:hover { opacity: 1; visibility: visible; pointer-events: auto; transform: translate(0, 0); } }
+.why-kicker .define-trigger { color: var(--color-teal); }
+@media (max-width: 768px) { .why-kicker-wrap .define-card { width: calc(100vw - 48px); } }
