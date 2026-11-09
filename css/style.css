@@ -1457,3 +1457,8 @@ body.page-home .site-header.is-scrolled, body.page-home .site-header:has(.main-n
 .aw-collapse { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.5rem; padding: 0.7rem 1.4rem; border: 1px solid currentColor; border-radius: 999px; font-family: var(--font-heading); font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; font-size: var(--t-small); }
 .aw-collapse:focus-visible { outline: 2px solid var(--color-teal); outline-offset: 4px; }
 @media (hover: hover) { .aw-collapse:hover { background: var(--color-white); color: var(--color-black); } }
+#why-coco h1.display-title br { display: none; }
+#why-coco .split-head { grid-template-columns: 1fr; gap: clamp(1.25rem, 2.5vw, 2rem); }
+#why-coco .why-copy, #why-coco .why-copy p { max-width: none; }
+#why-coco .why-copy p:not(.why-kicker):not(.why-close):not(.based-in) { font-size: var(--t-lead) !important; line-height: 1.55; }
+#why-coco .why-copy .why-kicker { font-size: var(--t-h3); }
