@@ -1731,3 +1731,93 @@ p { line-height: 1.65; }
 @media (min-width: 900px) { .hero-title-main { width: min-content; white-space: normal; } }
 /* Nov 5: hero paragraph keeps a comfortable reading measure; "Be Seen" is sized to exactly this width (js) */
 @media (min-width: 900px) { .hero-content p { max-width: 36rem; } }
+
+/* ==========================================================================
+   Nov 9: MOBILE POLISH PASS (max-width: 768px only). Desktop untouched.
+   Editorial, premium, restrained. Same fonts (Oswald + Comfortaa), tighter scale.
+   ========================================================================== */
+.logo-img--m { display: none; }
+@media (max-width: 768px) {
+  html { font-size: 100%; }
+  :root {
+    --t-label: 0.75rem;                          /* 12px eyebrows, medal labels */
+    --t-small: 0.8125rem;                        /* 13px buttons, tags, meta */
+    --t-body: 1rem;                              /* 16px */
+    --t-lead: clamp(1.25rem, 5.4vw, 1.375rem);   /* 20-22px */
+    --t-h4: 1.25rem;                             /* 20px card + list titles */
+    --t-h3: 1.625rem;                            /* 26px service titles */
+    --t-h2: clamp(2.125rem, 9.6vw, 2.5rem);      /* 34-40px section headings */
+    --t-display: var(--t-h2);
+    --container-pad-x: 24px;
+    --section-padding-y: 72px;
+    --nav-height: 68px;
+  }
+  .section { padding: 72px 0; }
+  .container { padding-left: 24px; padding-right: 24px; }
+
+  /* Body */
+  body { font-size: 1rem; line-height: 1.55; font-weight: 300; }
+  p { line-height: 1.55; }
+  .split-intro p, .split-intro, .service-body p, .svc-copy p, .founder-copy p, .diff-item p, .cta-ed .cta-ed-body,
+  .legal-body p, .careers-copy { max-width: 34ch; }
+  .hero-content p { max-width: none; } /* hero text spans the column so 'Be Seen' can match its width */
+  .hero-content p, .service-body p, .svc-copy p, .founder-copy p, .dl-list .dl-desc, .legal-body p, .legal-body li, .awards-strip-list li { font-weight: 300; line-height: 1.55; }
+  .split-intro, .split-intro p, .diff-item p, .cta-ed .cta-ed-body { font-size: 1rem !important; line-height: 1.55; font-weight: 300; }
+
+  /* Headings: same level = same size everywhere, balanced, never a lone word */
+  .display-title, .founder-name, .footer-tagline, .cs-title, #tagline-2 h2, .cta-ed .cta-ed-big {
+    font-size: var(--t-h2) !important; font-weight: 500; letter-spacing: 0.03em; line-height: 1.0;
+    text-wrap: balance; white-space: normal !important; overflow-wrap: break-word;
+  }
+  .display-title br { display: none; } /* let balance decide the break on phones */
+  .quote--lead p { font-size: 1.625rem !important; line-height: 1.1; }
+  .service-name h3, .svc-copy h2, .svc-copy h3 { font-size: var(--t-h3) !important; font-weight: 500; letter-spacing: 0.02em; text-wrap: balance; }
+  .feature-title, .diff-item h3, .dl-list summary, .dl-layout .dl-list summary, .careers-role, .founder-kicker, .legal-body h2 { font-size: var(--t-h4) !important; font-weight: 500; letter-spacing: 0.02em; text-wrap: balance; }
+  .cta-ed .cta-ed-lead { font-size: var(--t-lead) !important; }  /* "You made it." 20-22px */
+
+  /* Labels / eyebrows / buttons: Oswald 500, uppercase, 0.15em */
+  .footer-label, .awards-strip-label, .ed-eyebrow, .founder-eyebrow, .founder-role, .based-in, .quote figcaption, .legal-updated,
+  .service-tags, .service-body .service-tags, .feature-type, .card-type-tag, .routes-cols, .founder-bar {
+    font-family: var(--font-heading); font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; font-size: var(--t-label) !important; line-height: 1.5;
+  }
+  .feature-type { text-transform: none; letter-spacing: 0.04em; font-family: var(--font-body); font-weight: 400; font-size: 0.875rem !important; }
+  .btn, .dl-link, .cs-pill { font-family: var(--font-heading); font-weight: 500; letter-spacing: 0.15em; font-size: var(--t-small) !important; }
+  .btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 1.4rem; }
+
+  /* HEADER: black on every page, white logo + hamburger, 68px, bigger logo */
+  .site-header, body.page-home .site-header.is-scrolled, body.page-home .site-header:has(.main-nav.is-open) {
+    background: var(--color-black); color: var(--color-white); border-bottom: 1px solid rgba(255,255,255,0.12); backdrop-filter: none; -webkit-backdrop-filter: none;
+  }
+  body.page-home .site-header { background: transparent; border-bottom-color: transparent; }
+  body.page-home .site-header.is-scrolled, body.page-home .site-header:has(.main-nav.is-open) { background: var(--color-black); border-bottom-color: rgba(255,255,255,0.12); }
+  .header-inner { height: 68px; }
+  .site-header .logo-img { display: none !important; }
+  .site-header .logo-img--m, .site-header .logo-img--light { display: block !important; height: auto; width: 136px; max-width: none; }
+  .site-header .nav-toggle span, body.page-home .site-header.is-scrolled .nav-toggle span, body.page-home .site-header:has(.main-nav.is-open) .nav-toggle span { background: var(--color-white); }
+  .main-nav.is-open { background: var(--color-black); color: var(--color-white); border-top-color: rgba(255,255,255,0.15); }
+  .main-nav.is-open a[aria-current="page"] { color: #9d85ff; } /* light violet: 7.2:1 on black */
+  .header-inner:has(.main-nav.is-open) .social-icons { color: var(--color-white); border-top-color: rgba(255,255,255,0.15); }
+
+  /* HERO */
+  .hero-title-main { font-weight: 500; letter-spacing: 0.02em; line-height: 0.95; }
+  .hero-content p { font-size: 1rem !important; }
+  .hero-line2 { margin-top: 0.5em; }
+  .hero-pause { width: 36px; height: 36px; opacity: 0.7; right: 16px; bottom: 16px; }
+  .hero-pause svg { width: 13px; height: 13px; }
+  .hero { min-height: 100svh; padding-bottom: 72px; }
+
+  /* AWARDS: medal as a dot eyebrow, festival below, one left edge, even 20px rhythm */
+  .awards-strip-list { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  .awards-strip-list li { display: grid !important; grid-template-columns: 10px 1fr; column-gap: 10px; row-gap: 4px; align-items: center; font-size: 1.0625rem !important; line-height: 1.35; }
+  .awards-strip-list li i { grid-column: 1; grid-row: 1; width: 8px; height: 8px; transform: none; }
+  .awards-strip-list li strong { grid-column: 2; grid-row: 1; font-family: var(--font-heading); font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.75rem !important; margin: 0; }
+  .awards-strip-list li .aw-name { grid-column: 2; grid-row: 2; font-size: 1.0625rem; }
+
+  /* CTA + contact */
+  .cta-ed .cta-email { font-size: clamp(1.125rem, 5.6vw, 1.375rem) !important; white-space: nowrap; text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
+
+  /* Back to top: small, black, thin white outline; appears only when scrolling up */
+  .to-top { width: 40px; height: 40px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); background: var(--color-black); color: var(--color-white); box-shadow: 0 0 0 1px var(--color-white); }
+  .to-top svg { width: 18px; height: 18px; }
+}
+@media (min-width: 769px) and (max-width: 1024px) { .to-top { display: none; } }

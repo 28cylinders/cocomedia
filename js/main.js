@@ -444,7 +444,15 @@ document.querySelectorAll('[data-careers-mail]').forEach((a) => {
   b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   b.addEventListener('click', () => window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
   document.body.appendChild(b);
-  const onScroll = () => b.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.9);
+  // Nov 9: only shows while scrolling UP (intent to go back) so it never sits over text you're reading
+  let lastY = window.scrollY;
+  const onScroll = () => {
+    const y = window.scrollY, up = y < lastY - 4, down = y > lastY + 4;
+    if (y < window.innerHeight * 0.9) b.classList.remove('is-visible');
+    else if (up) b.classList.add('is-visible');
+    else if (down) b.classList.remove('is-visible');
+    lastY = y;
+  };
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 })();
 
