@@ -1442,3 +1442,8 @@ body.page-home .site-header.is-scrolled, body.page-home .site-header:has(.main-n
 .awards-all-snacks { position: relative; top: auto; right: auto; margin: 0.5rem 0 1.25rem auto; width: 140px; height: 120px; }
 .awards-all .awards-table th:last-child, .awards-all .awards-table tr:nth-child(-n+3) td:last-child { padding-right: 0; }
 }
+.aw-tag { display: inline-block; margin-left: 0.5rem; padding: 0.15rem 0.55rem; border: 1px solid rgba(255,255,255,0.45); border-radius: 999px; font-family: var(--font-heading); font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.6875rem; line-height: 1.4; white-space: nowrap; vertical-align: 0.1em; }
+.aw-tag--coco { background: var(--color-white); color: var(--color-black); border-color: var(--color-white); }
+.aw-legend { font-size: var(--t-label); margin: 0 0 1.5rem; max-width: 60ch; padding-right: clamp(150px, 16vw, 240px); }
+.aw-legend .aw-tag { margin: 0 0.35rem 0 0; }
+@media (max-width: 768px) { .aw-legend { padding-right: 0; } .aw-work .aw-tag { margin: 0.4rem 0 0; display: table; } }
