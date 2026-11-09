@@ -11,9 +11,7 @@
 <link rel="icon" href="../assets/favicon/favicon.ico">
 <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon/favicon-192.png">
 <link rel="apple-touch-icon" href="../assets/favicon/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Comfortaa:wght@300;400;500;700&amp;display=swap">
+<link rel="preload" href="../assets/fonts/oswald.woff2" as="font" type="font/woff2" crossorigin="">
 <link rel="canonical" href="https://cocomedia.tv/es/nosotros.html">
   <link rel="alternate" hreflang="en" href="https://cocomedia.tv/about.html">
   <link rel="alternate" hreflang="es" href="https://cocomedia.tv/es/nosotros.html">
@@ -29,7 +27,7 @@
 <meta property="og:image:alt" content="Logo de Coco Media">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#000000">
-<link rel="stylesheet" href="../css/style.css?v=11091620">
+<link rel="stylesheet" href="../css/style.css?v=11091629">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -77,9 +75,13 @@
          Routes graphic = 3 routes from her Oct 15 sketch. -->
 <section class="section section--dark" id="why-coco">
 <div class="container">
-<!-- Nov 9: tighter Why Coco. Title + kicker side by side, then the copy next to the routes chart (the section's image). -->
-<div class="split-head split-head--top why-head">
+<!-- Nov 9 (v3): Why Coco as one horizontal block. Title column | kicker, copy in two columns, closing line. Routes chart below. -->
+<div class="why-block">
+<div class="why-side">
 <h1 class="display-title">¿Por qué <br>Coco?</h1>
+<p class="based-in">Con sede en <span>Miami · Chicago</span></p>
+</div>
+<div class="why-main">
 <div class="define-wrap why-kicker-wrap">
 <p class="why-kicker">Somos más que un nombre <span role="button" tabindex="0" class="define-trigger" aria-expanded="false" aria-controls="cuchi-def" lang="es">“cuchi”</span>.</p>
 <div class="define-card" id="cuchi-def" role="note">
@@ -88,16 +90,16 @@
 <p class="define-def">Lindo, tierno, adorable. <span class="define-note">Como en: <span lang="es">“¡Qué cuchi!”</span></span></p>
 </div>
 </div>
-</div>
-<div class="why-body">
 <div class="why-copy">
 <p>Somos un estudio pequeño con un equipo que, por más de una década, ha creado campañas, tráileres, cortos y contenido detrás de cámaras que conectan historias con audiencias hispanas y latinas en todo el mundo. También hemos ayudado al mundo a descubrir producciones de Latinoamérica y del mercado hispano de EE. UU.</p>
 <p>Lo hacemos a nuestra manera: con creatividad, con ojo visual y con emoción. Entendemos que nuestra audiencia no es un solo grupo; abarca países, generaciones, costumbres y experiencias.</p>
 <p>Por eso es clave vivir la cultura desde adentro. Súmale años de experiencia en la industria y el ritmo vertiginoso de este negocio, sin perder el hilo ni el sentido del humor.</p>
 <p>Construimos relaciones, no solo proyectos. Muchos de nuestros clientes se han convertido en aliados de largo plazo.</p>
-<p class="why-close">Más de 20 premios internacionales. Campañas que rompen récords. Cero drama. Y sí, un nombre <span lang="es">“cuchi”</span>.</p>
-<p class="based-in">Con sede en <span>Miami · Chicago</span></p>
 </div>
+<p class="why-close">Más de 20 premios internacionales. Campañas que rompen récords. Cero drama. Y sí, un nombre <span lang="es">“cuchi”</span>.</p>
+</div>
+</div>
+<div class="why-chart">
 <div class="routes">
 <div class="routes-cols" aria-hidden="true"><span>Dónde empieza</span><span>A quién llega</span></div>
 <svg class="routes-map" viewbox="0 0 1000 480" role="img" aria-label="Tres rutas pasan por Coco Media: cualquier producción, de cualquier cultura, hacia audiencias hispanas y latinas; producciones hispanas y latinas hacia el mundo; producciones hispanas y latinas hacia audiencias hispanas y latinas.">
@@ -350,6 +352,6 @@
 </div>
 </div>
 </footer>
-<script src="../js/main.js?v=11091620"></script>
+<script src="../js/main.js?v=11091629"></script>
 </body>
 </html>

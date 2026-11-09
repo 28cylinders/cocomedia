@@ -10,9 +10,7 @@
   <link rel="icon" href="assets/favicon/favicon.ico">
   <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/favicon-192.png">
   <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Comfortaa:wght@300;400;500;700&display=swap">
+  <link rel="preload" href="assets/fonts/oswald.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="canonical" href="https://cocomedia.tv/about.html">
   <link rel="alternate" hreflang="en" href="https://cocomedia.tv/about.html">
   <link rel="alternate" hreflang="es" href="https://cocomedia.tv/es/nosotros.html">
@@ -28,7 +26,7 @@
   <meta property="og:image:alt" content="Coco Media logo">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#000000">
-  <link rel="stylesheet" href="css/style.css?v=11091620">
+  <link rel="stylesheet" href="css/style.css?v=11091629">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -79,27 +77,31 @@
          Routes graphic = 3 routes from her Oct 15 sketch. -->
     <section class="section section--dark" id="why-coco">
       <div class="container">
-        <!-- Nov 9: tighter Why Coco. Title + kicker side by side, then the copy next to the routes chart (the section's image). -->
-        <div class="split-head split-head--top why-head">
-          <h1 class="display-title">Why <br>Coco</h1>
-          <div class="define-wrap why-kicker-wrap">
-            <p class="why-kicker">We’re more than just a <span role="button" tabindex="0" class="define-trigger" aria-expanded="false" aria-controls="cuchi-def" lang="es">“cuchi”</span> name.</p>
-            <div class="define-card" id="cuchi-def" role="note">
-              <p class="define-word" lang="es">cu·chi</p>
-              <p class="define-meta"><em>adjective</em> · Venezuelan slang</p>
-              <p class="define-def">Cute, sweet, adorable. <span class="define-note">As in: <span lang="es">“¡Qué cuchi!”</span></span></p>
-            </div>
-          </div>
-        </div>
-        <div class="why-body">
-          <div class="why-copy">
-            <p>We’re a small studio with a team that, over a decade, has created campaigns, trailers, shorts, and behind-the-scenes content that connect stories with Hispanic and Latin audiences worldwide. We’ve also helped the world discover productions from Latin America and the U.S. Hispanic market.</p>
-            <p>We do this our way: creatively, visually, and emotionally. We understand our audience isn’t just one group; they span countries, generations, customs, and experiences.</p>
-            <p>That’s why cultural ownership matters. Add years of industry expertise and the breakneck pace of this business without losing the plot, or our sense of humor.</p>
-            <p>We build relationships, not just projects. Many of our clients have become long-term allies.</p>
-            <p class="why-close">20+ international awards. Record-breaking campaigns. Zero drama. And yes, a <span lang="es">“cuchi”</span> name.</p>
+        <!-- Nov 9 (v3): Why Coco as one horizontal block. Title column | kicker, copy in two columns, closing line. Routes chart below. -->
+        <div class="why-block">
+          <div class="why-side">
+            <h1 class="display-title">Why <br>Coco</h1>
             <p class="based-in">Based in <span>Miami · Chicago</span></p>
           </div>
+          <div class="why-main">
+            <div class="define-wrap why-kicker-wrap">
+              <p class="why-kicker">We’re more than just a <span role="button" tabindex="0" class="define-trigger" aria-expanded="false" aria-controls="cuchi-def" lang="es">“cuchi”</span> name.</p>
+              <div class="define-card" id="cuchi-def" role="note">
+                <p class="define-word" lang="es">cu·chi</p>
+                <p class="define-meta"><em>adjective</em> · Venezuelan slang</p>
+                <p class="define-def">Cute, sweet, adorable. <span class="define-note">As in: <span lang="es">“¡Qué cuchi!”</span></span></p>
+              </div>
+            </div>
+            <div class="why-copy">
+              <p>We’re a small studio with a team that, over a decade, has created campaigns, trailers, shorts, and behind-the-scenes content that connect stories with Hispanic and Latin audiences worldwide. We’ve also helped the world discover productions from Latin America and the U.S. Hispanic market.</p>
+              <p>We do this our way: creatively, visually, and emotionally. We understand our audience isn’t just one group; they span countries, generations, customs, and experiences.</p>
+              <p>That’s why cultural ownership matters. Add years of industry expertise and the breakneck pace of this business without losing the plot, or our sense of humor.</p>
+              <p>We build relationships, not just projects. Many of our clients have become long-term allies.</p>
+            </div>
+            <p class="why-close">20+ international awards. Record-breaking campaigns. Zero drama. And yes, a <span lang="es">“cuchi”</span> name.</p>
+          </div>
+        </div>
+        <div class="why-chart">
           <div class="routes">
             <div class="routes-cols" aria-hidden="true"><span>Where it starts</span><span>Who it reaches</span></div>
             <svg class="routes-map" viewBox="0 0 1000 480" role="img" aria-label="Three routes pass through Coco Media: any production, from any culture, to Hispanic and Latin audiences; Hispanic and Latin productions to the world; Hispanic and Latin productions to Hispanic and Latin audiences.">
@@ -361,6 +363,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=11091620"></script>
+  <script src="js/main.js?v=11091629"></script>
 </body>
 </html>
