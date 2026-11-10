@@ -29,7 +29,7 @@
   <meta property="og:image:alt" content="Coco Media logo">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#000000">
-  <link rel="stylesheet" href="css/style.css?v=11102204">
+  <link rel="stylesheet" href="css/style.css?v=11102346">
   <style>
   /* ==========================================================================
      Projects app — scoped under .projects-app so it can't leak into or
@@ -927,7 +927,8 @@ if (ES_DATA) PROJECTS_SRC.forEach((p) => {
 
 // ── DISPLAY ORDER ────────────────────────────────────
 // Reorder by impact + visual variety. IDs reference PROJECTS_SRC above.
-const ORDER = [1,25,23,21,19,2,22,5,24,29,30,3,4,6,7,10,8,14,13,15,16,17,18,20,11,12,9,26,27,28,35,31,32,33,36];
+// Nov 10: order per Mary Cruz (her picks first; Celia + El César moved down)
+const ORDER = [1,25,8,17,28,2,20,6,19,10,14,22,5,24,29,30,3,4,7,13,15,16,18,23,21,11,12,9,26,27,35,31,32,33,36];
 const PROJECTS = ORDER.map(id => PROJECTS_SRC.find(p => p.id === id));
 </script>
 
@@ -1353,7 +1354,7 @@ checkDeepLink();
     </div>
   </footer>
 
-  <script src="js/main.js?v=11102204"></script>
+  <script src="js/main.js?v=11102346"></script>
 
 <script>
 // Nov 5: phone layout toggle for the projects grid (remembers the choice on this device)

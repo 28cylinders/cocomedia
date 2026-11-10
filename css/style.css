@@ -1461,3 +1461,5 @@ body.page-home .site-header.is-scrolled, body.page-home .site-header:has(.main-n
 .aw-legend { font-size: max(var(--t-label), 0.875rem) !important; }
 .awards-strip-num { text-transform: uppercase; font-size: clamp(2.5rem, 5vw, 4.75rem) !important; }
 .aw-footnote { font-size: var(--t-small); opacity: 0.75; margin: 1.25rem 0 0; max-width: 60ch; }
+.founder-frame { width: 56%; }
+@media (max-width: 768px) { #tagline-2 h2 { text-align: left; } }
