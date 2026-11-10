@@ -19,6 +19,9 @@
   <link rel="preconnect" href="https://player.vimeo.com">
   <link rel="preload" href="assets/fonts/oswald.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="canonical" href="https://cocomedia.tv/projects.html">
+  <link rel="alternate" hreflang="en" href="https://cocomedia.tv/projects.html">
+  <link rel="alternate" hreflang="es" href="https://cocomedia.tv/es/proyectos.html">
+  <link rel="alternate" hreflang="x-default" href="https://cocomedia.tv/projects.html">
   <meta property="og:site_name" content="Coco Media">
   <meta property="og:image" content="https://cocomedia.tv/assets/brand/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -26,7 +29,7 @@
   <meta property="og:image:alt" content="Coco Media logo">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#000000">
-  <link rel="stylesheet" href="css/style.css?v=11102014">
+  <link rel="stylesheet" href="css/style.css?v=11102204">
   <style>
   /* ==========================================================================
      Projects app — scoped under .projects-app so it can't leak into or
@@ -283,7 +286,7 @@
         <!-- TBD: real Instagram URL -->
       </div>
       <!-- EN/ES toggle: unhide once /es/ pages exist; href points to this page's Spanish counterpart -->
-      <a class="lang-switch" href="es/" hreflang="es" lang="es" hidden><span class="sr-only">Ver en español: </span>ES</a>
+      <a class="lang-switch" href="es/proyectos.html" hreflang="es" lang="es"><span class="sr-only">Ver en español: </span>ES</a>
       <a href="index.html#cta" class="btn btn-cta">Let's Talk</a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -906,6 +909,22 @@ const PROJECTS_SRC = [
 
 ];
 
+// Nov 10: Spanish page (es/proyectos.html). build_es.py puts our Spanish texts in window.COCO_ES_DATA;
+// they're swapped in once here, so the rest of the page works the same. Anything without a translation
+// (show titles, names, text that comes from Vimeo) stays as is.
+const ES_DATA = document.documentElement.lang === 'es' ? (window.COCO_ES_DATA || {}) : null;
+const tx = (s) => (ES_DATA && s && ES_DATA[s]) || s;
+const txParts = (s, sep, join) => (s ? s.split(sep).map((x) => tx(x.trim())).join(join) : s);
+if (ES_DATA) PROJECTS_SRC.forEach((p) => {
+  p.title = txParts(p.title, '|', ' | ');
+  p.type = txParts(p.type, '|', ' | ');
+  p.genre = txParts(p.genre, ',', ', ');
+  p.format = tx(p.format);
+  p.extraText = txParts(p.extraText, '|', ' | ');
+  if (p.awards) p.awards = txParts(p.awards, '\n', '\n');
+  [p.mainVideo, ...(p.related || [])].forEach((v) => { if (v) { v.title = txParts(v.title, '|', ' | '); v.description = tx(v.description); } });
+});
+
 // ── DISPLAY ORDER ────────────────────────────────────
 // Reorder by impact + visual variety. IDs reference PROJECTS_SRC above.
 const ORDER = [1,25,23,21,19,2,22,5,24,29,30,3,4,6,7,10,8,14,13,15,16,17,18,20,11,12,9,26,27,28,35,31,32,33,36];
@@ -1097,7 +1116,7 @@ function buildFilters() {
   const genres = new Set();
   const types = new Set();
   const typeOrder = ['Trailer','Episodic Promo','BTS Content','Character Profile',
-                     'TV Spot','Sizzle Reel','Campaign','Brand Content'];
+                     'TV Spot','Sizzle Reel','Campaign','Brand Content'].map(tx);
 
   PROJECTS.forEach(p => {
     if (p.genre) p.genre.split(',').forEach(g => genres.add(g.trim()));
@@ -1256,11 +1275,11 @@ document.getElementById('btn-back').addEventListener('click', () => {
 
 // ?type=BTS%20Content (linked from Services > What We Deliver) shows only that type
 try {
-  const t = new URLSearchParams(window.location.search).get('type');
+  const t = tx(new URLSearchParams(window.location.search).get('type'));
   if (t && PROJECTS.some(p => p.type && p.type.split('|').map(s => s.trim()).includes(t))) {
     activeFilters.type = t;
     const chip = document.getElementById('type-chip');
-    chip.innerHTML = `Showing <strong>${t.replace(/[<>&]/g, '')}</strong> <a href="projects.html">Show all projects</a>`;
+    chip.innerHTML = `${tx('Showing')} <strong>${t.replace(/[<>&]/g, '')}</strong> <a href="${location.pathname}">${tx('Show all projects')}</a>`;
     chip.hidden = false;
   }
 } catch (e) {}
@@ -1334,7 +1353,7 @@ checkDeepLink();
     </div>
   </footer>
 
-  <script src="js/main.js?v=11102014"></script>
+  <script src="js/main.js?v=11102204"></script>
 
 <script>
 // Nov 5: phone layout toggle for the projects grid (remembers the choice on this device)
