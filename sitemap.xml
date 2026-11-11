@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://cocomedia.tv/</loc></url>
-  <url><loc>https://cocomedia.tv/about.html</loc></url>
-  <url><loc>https://cocomedia.tv/services.html</loc></url>
-  <url><loc>https://cocomedia.tv/projects.html</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://cocomedia.tv/</loc><xhtml:link rel="alternate" hreflang="en" href="https://cocomedia.tv/"/><xhtml:link rel="alternate" hreflang="es" href="https://cocomedia.tv/es/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://cocomedia.tv/"/></url>
+  <url><loc>https://cocomedia.tv/es/</loc><xhtml:link rel="alternate" hreflang="en" href="https://cocomedia.tv/"/><xhtml:link rel="alternate" hreflang="es" href="https://cocomedia.tv/es/"/><xhtml:link rel="alternate" hreflang="x-default" href="https://cocomedia.tv/"/></url>
+  <url><loc>https://cocomedia.tv/services.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://cocomedia.tv/services.html"/><xhtml:link rel="alternate" hreflang="es" href="https://cocomedia.tv/es/servicios.html"/><xhtml:link rel="alternate" hreflang="x-default" href="https://cocomedia.tv/services.html"/></url>
+  <url><loc>https://cocomedia.tv/es/servicios.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://cocomedia.tv/services.html"/><xhtml:link rel="alternate" hreflang="es" href="https://cocomedia.tv/es/servicios.html"/><xhtml:link rel="alternate" hreflang="x-default" href="https://cocomedia.tv/services.html"/></url>
+  <url><loc>https://cocomedia.tv/about.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://cocomedia.tv/about.html"/><xhtml:link rel="alternate" hreflang="es" href="https://cocomedia.tv/es/nosotros.html"/><xhtml:link rel="alternate" hreflang="x-default" href="https://cocomedia.tv/about.html"/></url>
+  <url><loc>https://cocomedia.tv/es/nosotros.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://cocomedia.tv/about.html"/><xhtml:link rel="alternate" hreflang="es" href="https://cocomedia.tv/es/nosotros.html"/><xhtml:link rel="alternate" hreflang="x-default" href="https://cocomedia.tv/about.html"/></url>
+  <url><loc>https://cocomedia.tv/projects.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://cocomedia.tv/projects.html"/><xhtml:link rel="alternate" hreflang="es" href="https://cocomedia.tv/es/proyectos.html"/><xhtml:link rel="alternate" hreflang="x-default" href="https://cocomedia.tv/projects.html"/></url>
+  <url><loc>https://cocomedia.tv/es/proyectos.html</loc><xhtml:link rel="alternate" hreflang="en" href="https://cocomedia.tv/projects.html"/><xhtml:link rel="alternate" hreflang="es" href="https://cocomedia.tv/es/proyectos.html"/><xhtml:link rel="alternate" hreflang="x-default" href="https://cocomedia.tv/projects.html"/></url>
   <url><loc>https://cocomedia.tv/careers.html</loc></url>
 </urlset>
