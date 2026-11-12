@@ -328,7 +328,7 @@ margin-top: 0.5rem;
 }
 .hero-title-main {
 display: block;
-opacity: 0.88;
+opacity: 0.83;
 font-size: clamp(2.75rem, 12vw, 5rem);
 }
 @media (min-width: 900px) {
